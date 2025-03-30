@@ -3,12 +3,10 @@
 
 #define MAVLINK_MSG_ID_ICAROUS_HEARTBEAT 42000
 
-MAVPACKED(
-        typedef struct __mavlink_icarous_heartbeat_t {
-            uint8_t status; /*<  See the FMS_STATE enum.*/
-        })
 
-mavlink_icarous_heartbeat_t;
+typedef struct __mavlink_icarous_heartbeat_t {
+ uint8_t status; /*<  See the FMS_STATE enum.*/
+} mavlink_icarous_heartbeat_t;
 
 #define MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN 1
 #define MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN 1
@@ -17,6 +15,7 @@ mavlink_icarous_heartbeat_t;
 
 #define MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_CRC 227
 #define MAVLINK_MSG_ID_42000_CRC 227
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -45,14 +44,14 @@ mavlink_icarous_heartbeat_t;
  * @param status  See the FMS_STATE enum.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_icarous_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                                   uint8_t status) {
+static inline uint16_t mavlink_msg_icarous_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint8_t status)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN];
     _mav_put_uint8_t(buf, 0, status);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
 #else
     mavlink_icarous_heartbeat_t packet;
     packet.status = status;
@@ -61,10 +60,40 @@ mavlink_msg_icarous_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavl
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ICAROUS_HEARTBEAT;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN,
-                                    MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN,
-                                    MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_CRC);
+}
+
+/**
+ * @brief Pack a icarous_heartbeat message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param status  See the FMS_STATE enum.
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_icarous_heartbeat_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint8_t status)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN];
+    _mav_put_uint8_t(buf, 0, status);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
+#else
+    mavlink_icarous_heartbeat_t packet;
+    packet.status = status;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_ICAROUS_HEARTBEAT;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
+#endif
 }
 
 /**
@@ -76,15 +105,15 @@ mavlink_msg_icarous_heartbeat_pack(uint8_t system_id, uint8_t component_id, mavl
  * @param status  See the FMS_STATE enum.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_icarous_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                        mavlink_message_t *msg,
-                                        uint8_t status) {
+static inline uint16_t mavlink_msg_icarous_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint8_t status)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN];
     _mav_put_uint8_t(buf, 0, status);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
 #else
     mavlink_icarous_heartbeat_t packet;
     packet.status = status;
@@ -93,10 +122,7 @@ mavlink_msg_icarous_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ICAROUS_HEARTBEAT;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN,
-                                         MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN,
-                                         MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_MIN_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_CRC);
 }
 
 /**
@@ -107,11 +133,9 @@ mavlink_msg_icarous_heartbeat_pack_chan(uint8_t system_id, uint8_t component_id,
  * @param msg The MAVLink message to compress the data into
  * @param icarous_heartbeat C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_icarous_heartbeat_encode(uint8_t system_id, uint8_t component_id,
-                                                            mavlink_message_t *msg,
-                                                            const mavlink_icarous_heartbeat_t *icarous_heartbeat) {
-    return mavlink_msg_icarous_heartbeat_pack(system_id, component_id, msg,
-                                              icarous_heartbeat->status);
+static inline uint16_t mavlink_msg_icarous_heartbeat_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_icarous_heartbeat_t* icarous_heartbeat)
+{
+    return mavlink_msg_icarous_heartbeat_pack(system_id, component_id, msg, icarous_heartbeat->status);
 }
 
 /**
@@ -123,12 +147,23 @@ static inline uint16_t mavlink_msg_icarous_heartbeat_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param icarous_heartbeat C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_icarous_heartbeat_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                          mavlink_message_t *msg,
-                                          const mavlink_icarous_heartbeat_t *icarous_heartbeat) {
-    return mavlink_msg_icarous_heartbeat_pack_chan(system_id, component_id, chan, msg,
-                                                   icarous_heartbeat->status);
+static inline uint16_t mavlink_msg_icarous_heartbeat_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_icarous_heartbeat_t* icarous_heartbeat)
+{
+    return mavlink_msg_icarous_heartbeat_pack_chan(system_id, component_id, chan, msg, icarous_heartbeat->status);
+}
+
+/**
+ * @brief Encode a icarous_heartbeat struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param icarous_heartbeat C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_icarous_heartbeat_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_icarous_heartbeat_t* icarous_heartbeat)
+{
+    return mavlink_msg_icarous_heartbeat_pack_status(system_id, component_id, _status, msg,  icarous_heartbeat->status);
 }
 
 /**
@@ -170,7 +205,7 @@ static inline void mavlink_msg_icarous_heartbeat_send_struct(mavlink_channel_t c
 
 #if MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -202,8 +237,9 @@ static inline void mavlink_msg_icarous_heartbeat_send_buf(mavlink_message_t *msg
  *
  * @return  See the FMS_STATE enum.
  */
-static inline uint8_t mavlink_msg_icarous_heartbeat_get_status(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 0);
+static inline uint8_t mavlink_msg_icarous_heartbeat_get_status(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  0);
 }
 
 /**
@@ -212,13 +248,13 @@ static inline uint8_t mavlink_msg_icarous_heartbeat_get_status(const mavlink_mes
  * @param msg The message to decode
  * @param icarous_heartbeat C-struct to decode the message contents into
  */
-static inline void mavlink_msg_icarous_heartbeat_decode(const mavlink_message_t *msg,
-                                                        mavlink_icarous_heartbeat_t *icarous_heartbeat) {
+static inline void mavlink_msg_icarous_heartbeat_decode(const mavlink_message_t* msg, mavlink_icarous_heartbeat_t* icarous_heartbeat)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     icarous_heartbeat->status = mavlink_msg_icarous_heartbeat_get_status(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN? msg->len : MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN;
-    memset(icarous_heartbeat, 0, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
-memcpy(icarous_heartbeat, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN? msg->len : MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN;
+        memset(icarous_heartbeat, 0, MAVLINK_MSG_ID_ICAROUS_HEARTBEAT_LEN);
+    memcpy(icarous_heartbeat, _MAV_PAYLOAD(msg), len);
 #endif
 }

@@ -3,15 +3,13 @@
 
 #define MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS 185
 
-MAVPACKED(
-        typedef struct __mavlink_remote_log_block_status_t {
-            uint32_t seqno; /*<  Log data block sequence number.*/
-            uint8_t target_system; /*<  System ID.*/
-            uint8_t target_component; /*<  Component ID.*/
-            uint8_t status; /*<  Log data block status.*/
-        })
 
-mavlink_remote_log_block_status_t;
+typedef struct __mavlink_remote_log_block_status_t {
+ uint32_t seqno; /*<  Log data block sequence number.*/
+ uint8_t target_system; /*<  System ID.*/
+ uint8_t target_component; /*<  Component ID.*/
+ uint8_t status; /*<  Log data block status.*/
+} mavlink_remote_log_block_status_t;
 
 #define MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN 7
 #define MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN 7
@@ -20,6 +18,7 @@ mavlink_remote_log_block_status_t;
 
 #define MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_CRC 186
 #define MAVLINK_MSG_ID_185_CRC 186
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -57,11 +56,9 @@ mavlink_remote_log_block_status_t;
  * @param status  Log data block status.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_remote_log_block_status_pack(uint8_t system_id, uint8_t component_id,
-                                         mavlink_message_t *msg,
-                                         uint8_t target_system, uint8_t target_component,
-                                         uint32_t seqno, uint8_t status) {
+static inline uint16_t mavlink_msg_remote_log_block_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint8_t target_system, uint8_t target_component, uint32_t seqno, uint8_t status)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN];
     _mav_put_uint32_t(buf, 0, seqno);
@@ -69,7 +66,7 @@ mavlink_msg_remote_log_block_status_pack(uint8_t system_id, uint8_t component_id
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 6, status);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
 #else
     mavlink_remote_log_block_status_t packet;
     packet.seqno = seqno;
@@ -81,10 +78,49 @@ mavlink_msg_remote_log_block_status_pack(uint8_t system_id, uint8_t component_id
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN,
-                                    MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN,
-                                    MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_CRC);
+}
+
+/**
+ * @brief Pack a remote_log_block_status message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param target_system  System ID.
+ * @param target_component  Component ID.
+ * @param seqno  Log data block sequence number.
+ * @param status  Log data block status.
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_remote_log_block_status_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint8_t target_system, uint8_t target_component, uint32_t seqno, uint8_t status)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN];
+    _mav_put_uint32_t(buf, 0, seqno);
+    _mav_put_uint8_t(buf, 4, target_system);
+    _mav_put_uint8_t(buf, 5, target_component);
+    _mav_put_uint8_t(buf, 6, status);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
+#else
+    mavlink_remote_log_block_status_t packet;
+    packet.seqno = seqno;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
+    packet.status = status;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
+#endif
 }
 
 /**
@@ -99,11 +135,10 @@ mavlink_msg_remote_log_block_status_pack(uint8_t system_id, uint8_t component_id
  * @param status  Log data block status.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_remote_log_block_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                              mavlink_message_t *msg,
-                                              uint8_t target_system, uint8_t target_component,
-                                              uint32_t seqno, uint8_t status) {
+static inline uint16_t mavlink_msg_remote_log_block_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint8_t target_system,uint8_t target_component,uint32_t seqno,uint8_t status)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN];
     _mav_put_uint32_t(buf, 0, seqno);
@@ -111,7 +146,7 @@ mavlink_msg_remote_log_block_status_pack_chan(uint8_t system_id, uint8_t compone
     _mav_put_uint8_t(buf, 5, target_component);
     _mav_put_uint8_t(buf, 6, status);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
 #else
     mavlink_remote_log_block_status_t packet;
     packet.seqno = seqno;
@@ -123,10 +158,7 @@ mavlink_msg_remote_log_block_status_pack_chan(uint8_t system_id, uint8_t compone
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN,
-                                         MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN,
-                                         MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_MIN_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_CRC);
 }
 
 /**
@@ -137,15 +169,9 @@ mavlink_msg_remote_log_block_status_pack_chan(uint8_t system_id, uint8_t compone
  * @param msg The MAVLink message to compress the data into
  * @param remote_log_block_status C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_remote_log_block_status_encode(uint8_t system_id, uint8_t component_id,
-                                           mavlink_message_t *msg,
-                                           const mavlink_remote_log_block_status_t *remote_log_block_status) {
-    return mavlink_msg_remote_log_block_status_pack(system_id, component_id, msg,
-                                                    remote_log_block_status->target_system,
-                                                    remote_log_block_status->target_component,
-                                                    remote_log_block_status->seqno,
-                                                    remote_log_block_status->status);
+static inline uint16_t mavlink_msg_remote_log_block_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_remote_log_block_status_t* remote_log_block_status)
+{
+    return mavlink_msg_remote_log_block_status_pack(system_id, component_id, msg, remote_log_block_status->target_system, remote_log_block_status->target_component, remote_log_block_status->seqno, remote_log_block_status->status);
 }
 
 /**
@@ -157,15 +183,23 @@ mavlink_msg_remote_log_block_status_encode(uint8_t system_id, uint8_t component_
  * @param msg The MAVLink message to compress the data into
  * @param remote_log_block_status C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_remote_log_block_status_encode_chan(uint8_t system_id, uint8_t component_id,
-                                                uint8_t chan, mavlink_message_t *msg,
-                                                const mavlink_remote_log_block_status_t *remote_log_block_status) {
-    return mavlink_msg_remote_log_block_status_pack_chan(system_id, component_id, chan, msg,
-                                                         remote_log_block_status->target_system,
-                                                         remote_log_block_status->target_component,
-                                                         remote_log_block_status->seqno,
-                                                         remote_log_block_status->status);
+static inline uint16_t mavlink_msg_remote_log_block_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_remote_log_block_status_t* remote_log_block_status)
+{
+    return mavlink_msg_remote_log_block_status_pack_chan(system_id, component_id, chan, msg, remote_log_block_status->target_system, remote_log_block_status->target_component, remote_log_block_status->seqno, remote_log_block_status->status);
+}
+
+/**
+ * @brief Encode a remote_log_block_status struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param remote_log_block_status C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_remote_log_block_status_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_remote_log_block_status_t* remote_log_block_status)
+{
+    return mavlink_msg_remote_log_block_status_pack_status(system_id, component_id, _status, msg,  remote_log_block_status->target_system, remote_log_block_status->target_component, remote_log_block_status->seqno, remote_log_block_status->status);
 }
 
 /**
@@ -216,7 +250,7 @@ static inline void mavlink_msg_remote_log_block_status_send_struct(mavlink_chann
 
 #if MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -254,9 +288,9 @@ static inline void mavlink_msg_remote_log_block_status_send_buf(mavlink_message_
  *
  * @return  System ID.
  */
-static inline uint8_t
-mavlink_msg_remote_log_block_status_get_target_system(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 4);
+static inline uint8_t mavlink_msg_remote_log_block_status_get_target_system(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  4);
 }
 
 /**
@@ -264,9 +298,9 @@ mavlink_msg_remote_log_block_status_get_target_system(const mavlink_message_t *m
  *
  * @return  Component ID.
  */
-static inline uint8_t
-mavlink_msg_remote_log_block_status_get_target_component(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 5);
+static inline uint8_t mavlink_msg_remote_log_block_status_get_target_component(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  5);
 }
 
 /**
@@ -274,8 +308,9 @@ mavlink_msg_remote_log_block_status_get_target_component(const mavlink_message_t
  *
  * @return  Log data block sequence number.
  */
-static inline uint32_t mavlink_msg_remote_log_block_status_get_seqno(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint32_t(msg, 0);
+static inline uint32_t mavlink_msg_remote_log_block_status_get_seqno(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  0);
 }
 
 /**
@@ -283,8 +318,9 @@ static inline uint32_t mavlink_msg_remote_log_block_status_get_seqno(const mavli
  *
  * @return  Log data block status.
  */
-static inline uint8_t mavlink_msg_remote_log_block_status_get_status(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 6);
+static inline uint8_t mavlink_msg_remote_log_block_status_get_status(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  6);
 }
 
 /**
@@ -293,18 +329,16 @@ static inline uint8_t mavlink_msg_remote_log_block_status_get_status(const mavli
  * @param msg The message to decode
  * @param remote_log_block_status C-struct to decode the message contents into
  */
-static inline void mavlink_msg_remote_log_block_status_decode(const mavlink_message_t *msg,
-                                                              mavlink_remote_log_block_status_t *remote_log_block_status) {
+static inline void mavlink_msg_remote_log_block_status_decode(const mavlink_message_t* msg, mavlink_remote_log_block_status_t* remote_log_block_status)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     remote_log_block_status->seqno = mavlink_msg_remote_log_block_status_get_seqno(msg);
-    remote_log_block_status->target_system = mavlink_msg_remote_log_block_status_get_target_system(
-            msg);
-    remote_log_block_status->target_component = mavlink_msg_remote_log_block_status_get_target_component(
-            msg);
+    remote_log_block_status->target_system = mavlink_msg_remote_log_block_status_get_target_system(msg);
+    remote_log_block_status->target_component = mavlink_msg_remote_log_block_status_get_target_component(msg);
     remote_log_block_status->status = mavlink_msg_remote_log_block_status_get_status(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN? msg->len : MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN;
-    memset(remote_log_block_status, 0, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
-memcpy(remote_log_block_status, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN? msg->len : MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN;
+        memset(remote_log_block_status, 0, MAVLINK_MSG_ID_REMOTE_LOG_BLOCK_STATUS_LEN);
+    memcpy(remote_log_block_status, _MAV_PAYLOAD(msg), len);
 #endif
 }

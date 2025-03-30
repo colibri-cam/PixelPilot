@@ -1,39 +1,38 @@
 #pragma once
 // MESSAGE COMMAND_LONG_STAMPED PACKING
 
-#define MAVLINK_MSG_ID_COMMAND_LONG_STAMPED 79
+#define MAVLINK_MSG_ID_COMMAND_LONG_STAMPED 224
 
-MAVPACKED(
-        typedef struct __mavlink_command_long_stamped_t {
-            uint64_t vehicle_timestamp; /*<  Microseconds elapsed since vehicle boot*/
-            uint32_t utc_time; /*<  UTC time, seconds elapsed since 01.01.1970*/
-            float param1; /*<  Parameter 1, as defined by MAV_CMD enum.*/
-            float param2; /*<  Parameter 2, as defined by MAV_CMD enum.*/
-            float param3; /*<  Parameter 3, as defined by MAV_CMD enum.*/
-            float param4; /*<  Parameter 4, as defined by MAV_CMD enum.*/
-            float param5; /*<  Parameter 5, as defined by MAV_CMD enum.*/
-            float param6; /*<  Parameter 6, as defined by MAV_CMD enum.*/
-            float param7; /*<  Parameter 7, as defined by MAV_CMD enum.*/
-            uint16_t command; /*<  Command ID, as defined by MAV_CMD enum.*/
-            uint8_t target_system; /*<  System which should execute the command*/
-            uint8_t target_component; /*<  Component which should execute the command, 0 for all components*/
-            uint8_t confirmation; /*<  0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)*/
-        })
 
-mavlink_command_long_stamped_t;
+typedef struct __mavlink_command_long_stamped_t {
+ uint64_t vehicle_timestamp; /*<  Microseconds elapsed since vehicle boot*/
+ uint32_t utc_time; /*<  UTC time, seconds elapsed since 01.01.1970*/
+ float param1; /*<  Parameter 1, as defined by MAV_CMD enum.*/
+ float param2; /*<  Parameter 2, as defined by MAV_CMD enum.*/
+ float param3; /*<  Parameter 3, as defined by MAV_CMD enum.*/
+ float param4; /*<  Parameter 4, as defined by MAV_CMD enum.*/
+ float param5; /*<  Parameter 5, as defined by MAV_CMD enum.*/
+ float param6; /*<  Parameter 6, as defined by MAV_CMD enum.*/
+ float param7; /*<  Parameter 7, as defined by MAV_CMD enum.*/
+ uint16_t command; /*<  Command ID, as defined by MAV_CMD enum.*/
+ uint8_t target_system; /*<  System which should execute the command*/
+ uint8_t target_component; /*<  Component which should execute the command, 0 for all components*/
+ uint8_t confirmation; /*<  0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)*/
+} mavlink_command_long_stamped_t;
 
 #define MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN 45
 #define MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN 45
-#define MAVLINK_MSG_ID_79_LEN 45
-#define MAVLINK_MSG_ID_79_MIN_LEN 45
+#define MAVLINK_MSG_ID_224_LEN 45
+#define MAVLINK_MSG_ID_224_MIN_LEN 45
 
 #define MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_CRC 102
-#define MAVLINK_MSG_ID_79_CRC 102
+#define MAVLINK_MSG_ID_224_CRC 102
+
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_COMMAND_LONG_STAMPED { \
-    79, \
+    224, \
     "COMMAND_LONG_STAMPED", \
     13, \
     {  { "utc_time", NULL, MAVLINK_TYPE_UINT32_T, 0, 8, offsetof(mavlink_command_long_stamped_t, utc_time) }, \
@@ -93,14 +92,9 @@ mavlink_command_long_stamped_t;
  * @param param7  Parameter 7, as defined by MAV_CMD enum.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_command_long_stamped_pack(uint8_t system_id, uint8_t component_id,
-                                      mavlink_message_t *msg,
-                                      uint32_t utc_time, uint64_t vehicle_timestamp,
-                                      uint8_t target_system, uint8_t target_component,
-                                      uint16_t command, uint8_t confirmation, float param1,
-                                      float param2, float param3, float param4, float param5,
-                                      float param6, float param7) {
+static inline uint16_t mavlink_msg_command_long_stamped_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t utc_time, uint64_t vehicle_timestamp, uint8_t target_system, uint8_t target_component, uint16_t command, uint8_t confirmation, float param1, float param2, float param3, float param4, float param5, float param6, float param7)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN];
     _mav_put_uint64_t(buf, 0, vehicle_timestamp);
@@ -117,7 +111,7 @@ mavlink_msg_command_long_stamped_pack(uint8_t system_id, uint8_t component_id,
     _mav_put_uint8_t(buf, 43, target_component);
     _mav_put_uint8_t(buf, 44, confirmation);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
 #else
     mavlink_command_long_stamped_t packet;
     packet.vehicle_timestamp = vehicle_timestamp;
@@ -138,10 +132,76 @@ mavlink_msg_command_long_stamped_pack(uint8_t system_id, uint8_t component_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_COMMAND_LONG_STAMPED;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN,
-                                    MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN,
-                                    MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_CRC);
+}
+
+/**
+ * @brief Pack a command_long_stamped message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param utc_time  UTC time, seconds elapsed since 01.01.1970
+ * @param vehicle_timestamp  Microseconds elapsed since vehicle boot
+ * @param target_system  System which should execute the command
+ * @param target_component  Component which should execute the command, 0 for all components
+ * @param command  Command ID, as defined by MAV_CMD enum.
+ * @param confirmation  0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)
+ * @param param1  Parameter 1, as defined by MAV_CMD enum.
+ * @param param2  Parameter 2, as defined by MAV_CMD enum.
+ * @param param3  Parameter 3, as defined by MAV_CMD enum.
+ * @param param4  Parameter 4, as defined by MAV_CMD enum.
+ * @param param5  Parameter 5, as defined by MAV_CMD enum.
+ * @param param6  Parameter 6, as defined by MAV_CMD enum.
+ * @param param7  Parameter 7, as defined by MAV_CMD enum.
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_command_long_stamped_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint32_t utc_time, uint64_t vehicle_timestamp, uint8_t target_system, uint8_t target_component, uint16_t command, uint8_t confirmation, float param1, float param2, float param3, float param4, float param5, float param6, float param7)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN];
+    _mav_put_uint64_t(buf, 0, vehicle_timestamp);
+    _mav_put_uint32_t(buf, 8, utc_time);
+    _mav_put_float(buf, 12, param1);
+    _mav_put_float(buf, 16, param2);
+    _mav_put_float(buf, 20, param3);
+    _mav_put_float(buf, 24, param4);
+    _mav_put_float(buf, 28, param5);
+    _mav_put_float(buf, 32, param6);
+    _mav_put_float(buf, 36, param7);
+    _mav_put_uint16_t(buf, 40, command);
+    _mav_put_uint8_t(buf, 42, target_system);
+    _mav_put_uint8_t(buf, 43, target_component);
+    _mav_put_uint8_t(buf, 44, confirmation);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
+#else
+    mavlink_command_long_stamped_t packet;
+    packet.vehicle_timestamp = vehicle_timestamp;
+    packet.utc_time = utc_time;
+    packet.param1 = param1;
+    packet.param2 = param2;
+    packet.param3 = param3;
+    packet.param4 = param4;
+    packet.param5 = param5;
+    packet.param6 = param6;
+    packet.param7 = param7;
+    packet.command = command;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
+    packet.confirmation = confirmation;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_COMMAND_LONG_STAMPED;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
+#endif
 }
 
 /**
@@ -165,14 +225,10 @@ mavlink_msg_command_long_stamped_pack(uint8_t system_id, uint8_t component_id,
  * @param param7  Parameter 7, as defined by MAV_CMD enum.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_command_long_stamped_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                           mavlink_message_t *msg,
-                                           uint32_t utc_time, uint64_t vehicle_timestamp,
-                                           uint8_t target_system, uint8_t target_component,
-                                           uint16_t command, uint8_t confirmation, float param1,
-                                           float param2, float param3, float param4, float param5,
-                                           float param6, float param7) {
+static inline uint16_t mavlink_msg_command_long_stamped_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint32_t utc_time,uint64_t vehicle_timestamp,uint8_t target_system,uint8_t target_component,uint16_t command,uint8_t confirmation,float param1,float param2,float param3,float param4,float param5,float param6,float param7)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN];
     _mav_put_uint64_t(buf, 0, vehicle_timestamp);
@@ -189,7 +245,7 @@ mavlink_msg_command_long_stamped_pack_chan(uint8_t system_id, uint8_t component_
     _mav_put_uint8_t(buf, 43, target_component);
     _mav_put_uint8_t(buf, 44, confirmation);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
 #else
     mavlink_command_long_stamped_t packet;
     packet.vehicle_timestamp = vehicle_timestamp;
@@ -210,10 +266,7 @@ mavlink_msg_command_long_stamped_pack_chan(uint8_t system_id, uint8_t component_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_COMMAND_LONG_STAMPED;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN,
-                                         MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN,
-                                         MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_MIN_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_CRC);
 }
 
 /**
@@ -224,24 +277,9 @@ mavlink_msg_command_long_stamped_pack_chan(uint8_t system_id, uint8_t component_
  * @param msg The MAVLink message to compress the data into
  * @param command_long_stamped C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_command_long_stamped_encode(uint8_t system_id, uint8_t component_id,
-                                        mavlink_message_t *msg,
-                                        const mavlink_command_long_stamped_t *command_long_stamped) {
-    return mavlink_msg_command_long_stamped_pack(system_id, component_id, msg,
-                                                 command_long_stamped->utc_time,
-                                                 command_long_stamped->vehicle_timestamp,
-                                                 command_long_stamped->target_system,
-                                                 command_long_stamped->target_component,
-                                                 command_long_stamped->command,
-                                                 command_long_stamped->confirmation,
-                                                 command_long_stamped->param1,
-                                                 command_long_stamped->param2,
-                                                 command_long_stamped->param3,
-                                                 command_long_stamped->param4,
-                                                 command_long_stamped->param5,
-                                                 command_long_stamped->param6,
-                                                 command_long_stamped->param7);
+static inline uint16_t mavlink_msg_command_long_stamped_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_command_long_stamped_t* command_long_stamped)
+{
+    return mavlink_msg_command_long_stamped_pack(system_id, component_id, msg, command_long_stamped->utc_time, command_long_stamped->vehicle_timestamp, command_long_stamped->target_system, command_long_stamped->target_component, command_long_stamped->command, command_long_stamped->confirmation, command_long_stamped->param1, command_long_stamped->param2, command_long_stamped->param3, command_long_stamped->param4, command_long_stamped->param5, command_long_stamped->param6, command_long_stamped->param7);
 }
 
 /**
@@ -253,24 +291,23 @@ mavlink_msg_command_long_stamped_encode(uint8_t system_id, uint8_t component_id,
  * @param msg The MAVLink message to compress the data into
  * @param command_long_stamped C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_command_long_stamped_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                             mavlink_message_t *msg,
-                                             const mavlink_command_long_stamped_t *command_long_stamped) {
-    return mavlink_msg_command_long_stamped_pack_chan(system_id, component_id, chan, msg,
-                                                      command_long_stamped->utc_time,
-                                                      command_long_stamped->vehicle_timestamp,
-                                                      command_long_stamped->target_system,
-                                                      command_long_stamped->target_component,
-                                                      command_long_stamped->command,
-                                                      command_long_stamped->confirmation,
-                                                      command_long_stamped->param1,
-                                                      command_long_stamped->param2,
-                                                      command_long_stamped->param3,
-                                                      command_long_stamped->param4,
-                                                      command_long_stamped->param5,
-                                                      command_long_stamped->param6,
-                                                      command_long_stamped->param7);
+static inline uint16_t mavlink_msg_command_long_stamped_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_command_long_stamped_t* command_long_stamped)
+{
+    return mavlink_msg_command_long_stamped_pack_chan(system_id, component_id, chan, msg, command_long_stamped->utc_time, command_long_stamped->vehicle_timestamp, command_long_stamped->target_system, command_long_stamped->target_component, command_long_stamped->command, command_long_stamped->confirmation, command_long_stamped->param1, command_long_stamped->param2, command_long_stamped->param3, command_long_stamped->param4, command_long_stamped->param5, command_long_stamped->param6, command_long_stamped->param7);
+}
+
+/**
+ * @brief Encode a command_long_stamped struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param command_long_stamped C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_command_long_stamped_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_command_long_stamped_t* command_long_stamped)
+{
+    return mavlink_msg_command_long_stamped_pack_status(system_id, component_id, _status, msg,  command_long_stamped->utc_time, command_long_stamped->vehicle_timestamp, command_long_stamped->target_system, command_long_stamped->target_component, command_long_stamped->command, command_long_stamped->confirmation, command_long_stamped->param1, command_long_stamped->param2, command_long_stamped->param3, command_long_stamped->param4, command_long_stamped->param5, command_long_stamped->param6, command_long_stamped->param7);
 }
 
 /**
@@ -348,7 +385,7 @@ static inline void mavlink_msg_command_long_stamped_send_struct(mavlink_channel_
 
 #if MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -404,8 +441,9 @@ static inline void mavlink_msg_command_long_stamped_send_buf(mavlink_message_t *
  *
  * @return  UTC time, seconds elapsed since 01.01.1970
  */
-static inline uint32_t mavlink_msg_command_long_stamped_get_utc_time(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint32_t(msg, 8);
+static inline uint32_t mavlink_msg_command_long_stamped_get_utc_time(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  8);
 }
 
 /**
@@ -413,9 +451,9 @@ static inline uint32_t mavlink_msg_command_long_stamped_get_utc_time(const mavli
  *
  * @return  Microseconds elapsed since vehicle boot
  */
-static inline uint64_t
-mavlink_msg_command_long_stamped_get_vehicle_timestamp(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint64_t(msg, 0);
+static inline uint64_t mavlink_msg_command_long_stamped_get_vehicle_timestamp(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint64_t(msg,  0);
 }
 
 /**
@@ -423,9 +461,9 @@ mavlink_msg_command_long_stamped_get_vehicle_timestamp(const mavlink_message_t *
  *
  * @return  System which should execute the command
  */
-static inline uint8_t
-mavlink_msg_command_long_stamped_get_target_system(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 42);
+static inline uint8_t mavlink_msg_command_long_stamped_get_target_system(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  42);
 }
 
 /**
@@ -433,9 +471,9 @@ mavlink_msg_command_long_stamped_get_target_system(const mavlink_message_t *msg)
  *
  * @return  Component which should execute the command, 0 for all components
  */
-static inline uint8_t
-mavlink_msg_command_long_stamped_get_target_component(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 43);
+static inline uint8_t mavlink_msg_command_long_stamped_get_target_component(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  43);
 }
 
 /**
@@ -443,8 +481,9 @@ mavlink_msg_command_long_stamped_get_target_component(const mavlink_message_t *m
  *
  * @return  Command ID, as defined by MAV_CMD enum.
  */
-static inline uint16_t mavlink_msg_command_long_stamped_get_command(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint16_t(msg, 40);
+static inline uint16_t mavlink_msg_command_long_stamped_get_command(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint16_t(msg,  40);
 }
 
 /**
@@ -452,9 +491,9 @@ static inline uint16_t mavlink_msg_command_long_stamped_get_command(const mavlin
  *
  * @return  0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command)
  */
-static inline uint8_t
-mavlink_msg_command_long_stamped_get_confirmation(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 44);
+static inline uint8_t mavlink_msg_command_long_stamped_get_confirmation(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  44);
 }
 
 /**
@@ -462,8 +501,9 @@ mavlink_msg_command_long_stamped_get_confirmation(const mavlink_message_t *msg) 
  *
  * @return  Parameter 1, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param1(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 12);
+static inline float mavlink_msg_command_long_stamped_get_param1(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  12);
 }
 
 /**
@@ -471,8 +511,9 @@ static inline float mavlink_msg_command_long_stamped_get_param1(const mavlink_me
  *
  * @return  Parameter 2, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param2(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 16);
+static inline float mavlink_msg_command_long_stamped_get_param2(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  16);
 }
 
 /**
@@ -480,8 +521,9 @@ static inline float mavlink_msg_command_long_stamped_get_param2(const mavlink_me
  *
  * @return  Parameter 3, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param3(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 20);
+static inline float mavlink_msg_command_long_stamped_get_param3(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  20);
 }
 
 /**
@@ -489,8 +531,9 @@ static inline float mavlink_msg_command_long_stamped_get_param3(const mavlink_me
  *
  * @return  Parameter 4, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param4(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 24);
+static inline float mavlink_msg_command_long_stamped_get_param4(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  24);
 }
 
 /**
@@ -498,8 +541,9 @@ static inline float mavlink_msg_command_long_stamped_get_param4(const mavlink_me
  *
  * @return  Parameter 5, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param5(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 28);
+static inline float mavlink_msg_command_long_stamped_get_param5(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  28);
 }
 
 /**
@@ -507,8 +551,9 @@ static inline float mavlink_msg_command_long_stamped_get_param5(const mavlink_me
  *
  * @return  Parameter 6, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param6(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 32);
+static inline float mavlink_msg_command_long_stamped_get_param6(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  32);
 }
 
 /**
@@ -516,8 +561,9 @@ static inline float mavlink_msg_command_long_stamped_get_param6(const mavlink_me
  *
  * @return  Parameter 7, as defined by MAV_CMD enum.
  */
-static inline float mavlink_msg_command_long_stamped_get_param7(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 36);
+static inline float mavlink_msg_command_long_stamped_get_param7(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  36);
 }
 
 /**
@@ -526,11 +572,10 @@ static inline float mavlink_msg_command_long_stamped_get_param7(const mavlink_me
  * @param msg The message to decode
  * @param command_long_stamped C-struct to decode the message contents into
  */
-static inline void mavlink_msg_command_long_stamped_decode(const mavlink_message_t *msg,
-                                                           mavlink_command_long_stamped_t *command_long_stamped) {
+static inline void mavlink_msg_command_long_stamped_decode(const mavlink_message_t* msg, mavlink_command_long_stamped_t* command_long_stamped)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    command_long_stamped->vehicle_timestamp = mavlink_msg_command_long_stamped_get_vehicle_timestamp(
-            msg);
+    command_long_stamped->vehicle_timestamp = mavlink_msg_command_long_stamped_get_vehicle_timestamp(msg);
     command_long_stamped->utc_time = mavlink_msg_command_long_stamped_get_utc_time(msg);
     command_long_stamped->param1 = mavlink_msg_command_long_stamped_get_param1(msg);
     command_long_stamped->param2 = mavlink_msg_command_long_stamped_get_param2(msg);
@@ -541,12 +586,11 @@ static inline void mavlink_msg_command_long_stamped_decode(const mavlink_message
     command_long_stamped->param7 = mavlink_msg_command_long_stamped_get_param7(msg);
     command_long_stamped->command = mavlink_msg_command_long_stamped_get_command(msg);
     command_long_stamped->target_system = mavlink_msg_command_long_stamped_get_target_system(msg);
-    command_long_stamped->target_component = mavlink_msg_command_long_stamped_get_target_component(
-            msg);
+    command_long_stamped->target_component = mavlink_msg_command_long_stamped_get_target_component(msg);
     command_long_stamped->confirmation = mavlink_msg_command_long_stamped_get_confirmation(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN? msg->len : MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN;
-    memset(command_long_stamped, 0, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
-memcpy(command_long_stamped, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN? msg->len : MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN;
+        memset(command_long_stamped, 0, MAVLINK_MSG_ID_COMMAND_LONG_STAMPED_LEN);
+    memcpy(command_long_stamped, _MAV_PAYLOAD(msg), len);
 #endif
 }

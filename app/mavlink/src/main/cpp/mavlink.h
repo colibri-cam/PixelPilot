@@ -33,6 +33,7 @@ struct mavlink_data {
     float telemetry_throttle;
     float telemetry_resolution;
     float telemetry_arm;
+    float temperature;
     char status_text[101];
     uint8_t flight_mode;
     uint8_t gps_fix_type;

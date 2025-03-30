@@ -3,14 +3,12 @@
 
 #define MAVLINK_MSG_ID_FENCE_FETCH_POINT 161
 
-MAVPACKED(
-        typedef struct __mavlink_fence_fetch_point_t {
-            uint8_t target_system; /*<  System ID.*/
-            uint8_t target_component; /*<  Component ID.*/
-            uint8_t idx; /*<  Point index (first point is 1, 0 is for return point).*/
-        })
 
-mavlink_fence_fetch_point_t;
+typedef struct __mavlink_fence_fetch_point_t {
+ uint8_t target_system; /*<  System ID.*/
+ uint8_t target_component; /*<  Component ID.*/
+ uint8_t idx; /*<  Point index (first point is 1, 0 is for return point).*/
+} mavlink_fence_fetch_point_t;
 
 #define MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN 3
 #define MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN 3
@@ -19,6 +17,7 @@ mavlink_fence_fetch_point_t;
 
 #define MAVLINK_MSG_ID_FENCE_FETCH_POINT_CRC 68
 #define MAVLINK_MSG_ID_161_CRC 68
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -53,16 +52,16 @@ mavlink_fence_fetch_point_t;
  * @param idx  Point index (first point is 1, 0 is for return point).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_fence_fetch_point_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                                   uint8_t target_system, uint8_t target_component, uint8_t idx) {
+static inline uint16_t mavlink_msg_fence_fetch_point_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint8_t target_system, uint8_t target_component, uint8_t idx)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN];
     _mav_put_uint8_t(buf, 0, target_system);
     _mav_put_uint8_t(buf, 1, target_component);
     _mav_put_uint8_t(buf, 2, idx);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
 #else
     mavlink_fence_fetch_point_t packet;
     packet.target_system = target_system;
@@ -73,10 +72,46 @@ mavlink_msg_fence_fetch_point_pack(uint8_t system_id, uint8_t component_id, mavl
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_FENCE_FETCH_POINT;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN,
-                                    MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN,
-                                    MAVLINK_MSG_ID_FENCE_FETCH_POINT_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_CRC);
+}
+
+/**
+ * @brief Pack a fence_fetch_point message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param target_system  System ID.
+ * @param target_component  Component ID.
+ * @param idx  Point index (first point is 1, 0 is for return point).
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_fence_fetch_point_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint8_t target_system, uint8_t target_component, uint8_t idx)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN];
+    _mav_put_uint8_t(buf, 0, target_system);
+    _mav_put_uint8_t(buf, 1, target_component);
+    _mav_put_uint8_t(buf, 2, idx);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
+#else
+    mavlink_fence_fetch_point_t packet;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
+    packet.idx = idx;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_FENCE_FETCH_POINT;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
+#endif
 }
 
 /**
@@ -90,18 +125,17 @@ mavlink_msg_fence_fetch_point_pack(uint8_t system_id, uint8_t component_id, mavl
  * @param idx  Point index (first point is 1, 0 is for return point).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_fence_fetch_point_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                        mavlink_message_t *msg,
-                                        uint8_t target_system, uint8_t target_component,
-                                        uint8_t idx) {
+static inline uint16_t mavlink_msg_fence_fetch_point_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint8_t target_system,uint8_t target_component,uint8_t idx)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN];
     _mav_put_uint8_t(buf, 0, target_system);
     _mav_put_uint8_t(buf, 1, target_component);
     _mav_put_uint8_t(buf, 2, idx);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
 #else
     mavlink_fence_fetch_point_t packet;
     packet.target_system = target_system;
@@ -112,10 +146,7 @@ mavlink_msg_fence_fetch_point_pack_chan(uint8_t system_id, uint8_t component_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_FENCE_FETCH_POINT;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN,
-                                         MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN,
-                                         MAVLINK_MSG_ID_FENCE_FETCH_POINT_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_FENCE_FETCH_POINT_MIN_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN, MAVLINK_MSG_ID_FENCE_FETCH_POINT_CRC);
 }
 
 /**
@@ -126,13 +157,9 @@ mavlink_msg_fence_fetch_point_pack_chan(uint8_t system_id, uint8_t component_id,
  * @param msg The MAVLink message to compress the data into
  * @param fence_fetch_point C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_fence_fetch_point_encode(uint8_t system_id, uint8_t component_id,
-                                                            mavlink_message_t *msg,
-                                                            const mavlink_fence_fetch_point_t *fence_fetch_point) {
-    return mavlink_msg_fence_fetch_point_pack(system_id, component_id, msg,
-                                              fence_fetch_point->target_system,
-                                              fence_fetch_point->target_component,
-                                              fence_fetch_point->idx);
+static inline uint16_t mavlink_msg_fence_fetch_point_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_fence_fetch_point_t* fence_fetch_point)
+{
+    return mavlink_msg_fence_fetch_point_pack(system_id, component_id, msg, fence_fetch_point->target_system, fence_fetch_point->target_component, fence_fetch_point->idx);
 }
 
 /**
@@ -144,14 +171,23 @@ static inline uint16_t mavlink_msg_fence_fetch_point_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param fence_fetch_point C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_fence_fetch_point_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                          mavlink_message_t *msg,
-                                          const mavlink_fence_fetch_point_t *fence_fetch_point) {
-    return mavlink_msg_fence_fetch_point_pack_chan(system_id, component_id, chan, msg,
-                                                   fence_fetch_point->target_system,
-                                                   fence_fetch_point->target_component,
-                                                   fence_fetch_point->idx);
+static inline uint16_t mavlink_msg_fence_fetch_point_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_fence_fetch_point_t* fence_fetch_point)
+{
+    return mavlink_msg_fence_fetch_point_pack_chan(system_id, component_id, chan, msg, fence_fetch_point->target_system, fence_fetch_point->target_component, fence_fetch_point->idx);
+}
+
+/**
+ * @brief Encode a fence_fetch_point struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param fence_fetch_point C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_fence_fetch_point_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_fence_fetch_point_t* fence_fetch_point)
+{
+    return mavlink_msg_fence_fetch_point_pack_status(system_id, component_id, _status, msg,  fence_fetch_point->target_system, fence_fetch_point->target_component, fence_fetch_point->idx);
 }
 
 /**
@@ -199,7 +235,7 @@ static inline void mavlink_msg_fence_fetch_point_send_struct(mavlink_channel_t c
 
 #if MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -235,9 +271,9 @@ static inline void mavlink_msg_fence_fetch_point_send_buf(mavlink_message_t *msg
  *
  * @return  System ID.
  */
-static inline uint8_t
-mavlink_msg_fence_fetch_point_get_target_system(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 0);
+static inline uint8_t mavlink_msg_fence_fetch_point_get_target_system(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  0);
 }
 
 /**
@@ -245,9 +281,9 @@ mavlink_msg_fence_fetch_point_get_target_system(const mavlink_message_t *msg) {
  *
  * @return  Component ID.
  */
-static inline uint8_t
-mavlink_msg_fence_fetch_point_get_target_component(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 1);
+static inline uint8_t mavlink_msg_fence_fetch_point_get_target_component(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  1);
 }
 
 /**
@@ -255,8 +291,9 @@ mavlink_msg_fence_fetch_point_get_target_component(const mavlink_message_t *msg)
  *
  * @return  Point index (first point is 1, 0 is for return point).
  */
-static inline uint8_t mavlink_msg_fence_fetch_point_get_idx(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 2);
+static inline uint8_t mavlink_msg_fence_fetch_point_get_idx(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  2);
 }
 
 /**
@@ -265,15 +302,15 @@ static inline uint8_t mavlink_msg_fence_fetch_point_get_idx(const mavlink_messag
  * @param msg The message to decode
  * @param fence_fetch_point C-struct to decode the message contents into
  */
-static inline void mavlink_msg_fence_fetch_point_decode(const mavlink_message_t *msg,
-                                                        mavlink_fence_fetch_point_t *fence_fetch_point) {
+static inline void mavlink_msg_fence_fetch_point_decode(const mavlink_message_t* msg, mavlink_fence_fetch_point_t* fence_fetch_point)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     fence_fetch_point->target_system = mavlink_msg_fence_fetch_point_get_target_system(msg);
     fence_fetch_point->target_component = mavlink_msg_fence_fetch_point_get_target_component(msg);
     fence_fetch_point->idx = mavlink_msg_fence_fetch_point_get_idx(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN? msg->len : MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN;
-    memset(fence_fetch_point, 0, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
-memcpy(fence_fetch_point, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN? msg->len : MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN;
+        memset(fence_fetch_point, 0, MAVLINK_MSG_ID_FENCE_FETCH_POINT_LEN);
+    memcpy(fence_fetch_point, _MAV_PAYLOAD(msg), len);
 #endif
 }

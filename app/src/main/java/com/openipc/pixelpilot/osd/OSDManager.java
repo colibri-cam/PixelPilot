@@ -101,6 +101,7 @@ public class OSDManager {
         listOSDItems.add(new OSDElement("Video Decoding", binding.itemVideoStats));
         listOSDItems.add(new OSDElement("Video Link Txt", binding.itemLinkStatus));
         listOSDItems.add(new OSDElement("Video Link Graph", binding.itemLinkStatusChart));
+        listOSDItems.add(new OSDElement("Temperature", binding.itemTemp));
         restoreOSDConfig();
     }
 
@@ -138,6 +139,7 @@ public class OSDManager {
         binding.tvBat.setText(formatFloat(voltage, "V", ""));
         int cellCount = (int) (floor(voltage / 4.3) + 1);
         float cellVolt = voltage / cellCount;
+        binding.tvTemp.setText(formatFloat(data.temperature / 100, "°C", ""));
         binding.tvBatCell.setText(formatFloat(cellVolt, "V", ""));
         binding.tvCurrent.setText(formatDouble(data.telemetryCurrent / 100.0, "A", ""));
         binding.tvAlt.setText(formatDouble(data.telemetryAltitude / 100 - 1000, "m", ""));

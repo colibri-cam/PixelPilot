@@ -3,22 +3,22 @@
 
 #define MAVLINK_MSG_ID_GPS2_RTK 128
 
-MAVPACKED(
-        typedef struct __mavlink_gps2_rtk_t {
-            uint32_t time_last_baseline_ms; /*< [ms] Time since boot of last baseline message received.*/
-            uint32_t tow; /*< [ms] GPS Time of Week of last baseline*/
-            int32_t baseline_a_mm; /*< [mm] Current baseline in ECEF x or NED north component.*/
-            int32_t baseline_b_mm; /*< [mm] Current baseline in ECEF y or NED east component.*/
-            int32_t baseline_c_mm; /*< [mm] Current baseline in ECEF z or NED down component.*/
-            uint32_t accuracy; /*<  Current estimate of baseline accuracy.*/
-            int32_t iar_num_hypotheses; /*<  Current number of integer ambiguity hypotheses.*/
-            uint16_t wn; /*<  GPS Week Number of last baseline*/
-            uint8_t rtk_receiver_id; /*<  Identification of connected RTK receiver.*/
-            uint8_t rtk_health; /*<  GPS-specific health report for RTK data.*/
-            uint8_t rtk_rate; /*< [Hz] Rate of baseline messages being received by GPS*/
-            uint8_t nsats; /*<  Current number of sats used for RTK calculation.*/
-            uint8_t baseline_coords_type; /*<  Coordinate system of baseline*/
-        }) mavlink_gps2_rtk_t;
+
+typedef struct __mavlink_gps2_rtk_t {
+ uint32_t time_last_baseline_ms; /*< [ms] Time since boot of last baseline message received.*/
+ uint32_t tow; /*< [ms] GPS Time of Week of last baseline*/
+ int32_t baseline_a_mm; /*< [mm] Current baseline in ECEF x or NED north component.*/
+ int32_t baseline_b_mm; /*< [mm] Current baseline in ECEF y or NED east component.*/
+ int32_t baseline_c_mm; /*< [mm] Current baseline in ECEF z or NED down component.*/
+ uint32_t accuracy; /*<  Current estimate of baseline accuracy.*/
+ int32_t iar_num_hypotheses; /*<  Current number of integer ambiguity hypotheses.*/
+ uint16_t wn; /*<  GPS Week Number of last baseline*/
+ uint8_t rtk_receiver_id; /*<  Identification of connected RTK receiver.*/
+ uint8_t rtk_health; /*<  GPS-specific health report for RTK data.*/
+ uint8_t rtk_rate; /*< [Hz] Rate of baseline messages being received by GPS*/
+ uint8_t nsats; /*<  Current number of sats used for RTK calculation.*/
+ uint8_t baseline_coords_type; /*<  Coordinate system of baseline*/
+} mavlink_gps2_rtk_t;
 
 #define MAVLINK_MSG_ID_GPS2_RTK_LEN 35
 #define MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN 35
@@ -27,6 +27,7 @@ MAVPACKED(
 
 #define MAVLINK_MSG_ID_GPS2_RTK_CRC 226
 #define MAVLINK_MSG_ID_128_CRC 226
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -91,13 +92,9 @@ MAVPACKED(
  * @param iar_num_hypotheses  Current number of integer ambiguity hypotheses.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_gps2_rtk_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                          uint32_t time_last_baseline_ms, uint8_t rtk_receiver_id, uint16_t wn,
-                          uint32_t tow, uint8_t rtk_health, uint8_t rtk_rate, uint8_t nsats,
-                          uint8_t baseline_coords_type, int32_t baseline_a_mm,
-                          int32_t baseline_b_mm, int32_t baseline_c_mm, uint32_t accuracy,
-                          int32_t iar_num_hypotheses) {
+static inline uint16_t mavlink_msg_gps2_rtk_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint32_t time_last_baseline_ms, uint8_t rtk_receiver_id, uint16_t wn, uint32_t tow, uint8_t rtk_health, uint8_t rtk_rate, uint8_t nsats, uint8_t baseline_coords_type, int32_t baseline_a_mm, int32_t baseline_b_mm, int32_t baseline_c_mm, uint32_t accuracy, int32_t iar_num_hypotheses)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS2_RTK_LEN];
     _mav_put_uint32_t(buf, 0, time_last_baseline_ms);
@@ -131,12 +128,80 @@ mavlink_msg_gps2_rtk_pack(uint8_t system_id, uint8_t component_id, mavlink_messa
     packet.nsats = nsats;
     packet.baseline_coords_type = baseline_coords_type;
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS2_RTK_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS2_RTK_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_GPS2_RTK;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN,
-                                    MAVLINK_MSG_ID_GPS2_RTK_LEN, MAVLINK_MSG_ID_GPS2_RTK_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN, MAVLINK_MSG_ID_GPS2_RTK_LEN, MAVLINK_MSG_ID_GPS2_RTK_CRC);
+}
+
+/**
+ * @brief Pack a gps2_rtk message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param time_last_baseline_ms [ms] Time since boot of last baseline message received.
+ * @param rtk_receiver_id  Identification of connected RTK receiver.
+ * @param wn  GPS Week Number of last baseline
+ * @param tow [ms] GPS Time of Week of last baseline
+ * @param rtk_health  GPS-specific health report for RTK data.
+ * @param rtk_rate [Hz] Rate of baseline messages being received by GPS
+ * @param nsats  Current number of sats used for RTK calculation.
+ * @param baseline_coords_type  Coordinate system of baseline
+ * @param baseline_a_mm [mm] Current baseline in ECEF x or NED north component.
+ * @param baseline_b_mm [mm] Current baseline in ECEF y or NED east component.
+ * @param baseline_c_mm [mm] Current baseline in ECEF z or NED down component.
+ * @param accuracy  Current estimate of baseline accuracy.
+ * @param iar_num_hypotheses  Current number of integer ambiguity hypotheses.
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_gps2_rtk_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint32_t time_last_baseline_ms, uint8_t rtk_receiver_id, uint16_t wn, uint32_t tow, uint8_t rtk_health, uint8_t rtk_rate, uint8_t nsats, uint8_t baseline_coords_type, int32_t baseline_a_mm, int32_t baseline_b_mm, int32_t baseline_c_mm, uint32_t accuracy, int32_t iar_num_hypotheses)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_GPS2_RTK_LEN];
+    _mav_put_uint32_t(buf, 0, time_last_baseline_ms);
+    _mav_put_uint32_t(buf, 4, tow);
+    _mav_put_int32_t(buf, 8, baseline_a_mm);
+    _mav_put_int32_t(buf, 12, baseline_b_mm);
+    _mav_put_int32_t(buf, 16, baseline_c_mm);
+    _mav_put_uint32_t(buf, 20, accuracy);
+    _mav_put_int32_t(buf, 24, iar_num_hypotheses);
+    _mav_put_uint16_t(buf, 28, wn);
+    _mav_put_uint8_t(buf, 30, rtk_receiver_id);
+    _mav_put_uint8_t(buf, 31, rtk_health);
+    _mav_put_uint8_t(buf, 32, rtk_rate);
+    _mav_put_uint8_t(buf, 33, nsats);
+    _mav_put_uint8_t(buf, 34, baseline_coords_type);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_GPS2_RTK_LEN);
+#else
+    mavlink_gps2_rtk_t packet;
+    packet.time_last_baseline_ms = time_last_baseline_ms;
+    packet.tow = tow;
+    packet.baseline_a_mm = baseline_a_mm;
+    packet.baseline_b_mm = baseline_b_mm;
+    packet.baseline_c_mm = baseline_c_mm;
+    packet.accuracy = accuracy;
+    packet.iar_num_hypotheses = iar_num_hypotheses;
+    packet.wn = wn;
+    packet.rtk_receiver_id = rtk_receiver_id;
+    packet.rtk_health = rtk_health;
+    packet.rtk_rate = rtk_rate;
+    packet.nsats = nsats;
+    packet.baseline_coords_type = baseline_coords_type;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS2_RTK_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_GPS2_RTK;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN, MAVLINK_MSG_ID_GPS2_RTK_LEN, MAVLINK_MSG_ID_GPS2_RTK_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN, MAVLINK_MSG_ID_GPS2_RTK_LEN);
+#endif
 }
 
 /**
@@ -160,14 +225,10 @@ mavlink_msg_gps2_rtk_pack(uint8_t system_id, uint8_t component_id, mavlink_messa
  * @param iar_num_hypotheses  Current number of integer ambiguity hypotheses.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_gps2_rtk_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                               mavlink_message_t *msg,
-                               uint32_t time_last_baseline_ms, uint8_t rtk_receiver_id, uint16_t wn,
-                               uint32_t tow, uint8_t rtk_health, uint8_t rtk_rate, uint8_t nsats,
-                               uint8_t baseline_coords_type, int32_t baseline_a_mm,
-                               int32_t baseline_b_mm, int32_t baseline_c_mm, uint32_t accuracy,
-                               int32_t iar_num_hypotheses) {
+static inline uint16_t mavlink_msg_gps2_rtk_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint32_t time_last_baseline_ms,uint8_t rtk_receiver_id,uint16_t wn,uint32_t tow,uint8_t rtk_health,uint8_t rtk_rate,uint8_t nsats,uint8_t baseline_coords_type,int32_t baseline_a_mm,int32_t baseline_b_mm,int32_t baseline_c_mm,uint32_t accuracy,int32_t iar_num_hypotheses)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS2_RTK_LEN];
     _mav_put_uint32_t(buf, 0, time_last_baseline_ms);
@@ -201,13 +262,11 @@ mavlink_msg_gps2_rtk_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t 
     packet.nsats = nsats;
     packet.baseline_coords_type = baseline_coords_type;
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS2_RTK_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_GPS2_RTK_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_GPS2_RTK;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN,
-                                         MAVLINK_MSG_ID_GPS2_RTK_LEN, MAVLINK_MSG_ID_GPS2_RTK_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_GPS2_RTK_MIN_LEN, MAVLINK_MSG_ID_GPS2_RTK_LEN, MAVLINK_MSG_ID_GPS2_RTK_CRC);
 }
 
 /**
@@ -218,15 +277,9 @@ mavlink_msg_gps2_rtk_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param gps2_rtk C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_gps2_rtk_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                            const mavlink_gps2_rtk_t *gps2_rtk) {
-    return mavlink_msg_gps2_rtk_pack(system_id, component_id, msg, gps2_rtk->time_last_baseline_ms,
-                                     gps2_rtk->rtk_receiver_id, gps2_rtk->wn, gps2_rtk->tow,
-                                     gps2_rtk->rtk_health, gps2_rtk->rtk_rate, gps2_rtk->nsats,
-                                     gps2_rtk->baseline_coords_type, gps2_rtk->baseline_a_mm,
-                                     gps2_rtk->baseline_b_mm, gps2_rtk->baseline_c_mm,
-                                     gps2_rtk->accuracy, gps2_rtk->iar_num_hypotheses);
+static inline uint16_t mavlink_msg_gps2_rtk_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps2_rtk_t* gps2_rtk)
+{
+    return mavlink_msg_gps2_rtk_pack(system_id, component_id, msg, gps2_rtk->time_last_baseline_ms, gps2_rtk->rtk_receiver_id, gps2_rtk->wn, gps2_rtk->tow, gps2_rtk->rtk_health, gps2_rtk->rtk_rate, gps2_rtk->nsats, gps2_rtk->baseline_coords_type, gps2_rtk->baseline_a_mm, gps2_rtk->baseline_b_mm, gps2_rtk->baseline_c_mm, gps2_rtk->accuracy, gps2_rtk->iar_num_hypotheses);
 }
 
 /**
@@ -238,16 +291,23 @@ mavlink_msg_gps2_rtk_encode(uint8_t system_id, uint8_t component_id, mavlink_mes
  * @param msg The MAVLink message to compress the data into
  * @param gps2_rtk C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_gps2_rtk_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                 mavlink_message_t *msg, const mavlink_gps2_rtk_t *gps2_rtk) {
-    return mavlink_msg_gps2_rtk_pack_chan(system_id, component_id, chan, msg,
-                                          gps2_rtk->time_last_baseline_ms,
-                                          gps2_rtk->rtk_receiver_id, gps2_rtk->wn, gps2_rtk->tow,
-                                          gps2_rtk->rtk_health, gps2_rtk->rtk_rate, gps2_rtk->nsats,
-                                          gps2_rtk->baseline_coords_type, gps2_rtk->baseline_a_mm,
-                                          gps2_rtk->baseline_b_mm, gps2_rtk->baseline_c_mm,
-                                          gps2_rtk->accuracy, gps2_rtk->iar_num_hypotheses);
+static inline uint16_t mavlink_msg_gps2_rtk_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps2_rtk_t* gps2_rtk)
+{
+    return mavlink_msg_gps2_rtk_pack_chan(system_id, component_id, chan, msg, gps2_rtk->time_last_baseline_ms, gps2_rtk->rtk_receiver_id, gps2_rtk->wn, gps2_rtk->tow, gps2_rtk->rtk_health, gps2_rtk->rtk_rate, gps2_rtk->nsats, gps2_rtk->baseline_coords_type, gps2_rtk->baseline_a_mm, gps2_rtk->baseline_b_mm, gps2_rtk->baseline_c_mm, gps2_rtk->accuracy, gps2_rtk->iar_num_hypotheses);
+}
+
+/**
+ * @brief Encode a gps2_rtk struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param gps2_rtk C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_gps2_rtk_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_gps2_rtk_t* gps2_rtk)
+{
+    return mavlink_msg_gps2_rtk_pack_status(system_id, component_id, _status, msg,  gps2_rtk->time_last_baseline_ms, gps2_rtk->rtk_receiver_id, gps2_rtk->wn, gps2_rtk->tow, gps2_rtk->rtk_health, gps2_rtk->rtk_rate, gps2_rtk->nsats, gps2_rtk->baseline_coords_type, gps2_rtk->baseline_a_mm, gps2_rtk->baseline_b_mm, gps2_rtk->baseline_c_mm, gps2_rtk->accuracy, gps2_rtk->iar_num_hypotheses);
 }
 
 /**
@@ -325,7 +385,7 @@ static inline void mavlink_msg_gps2_rtk_send_struct(mavlink_channel_t chan, cons
 
 #if MAVLINK_MSG_ID_GPS2_RTK_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -381,9 +441,9 @@ static inline void mavlink_msg_gps2_rtk_send_buf(mavlink_message_t *msgbuf, mavl
  *
  * @return [ms] Time since boot of last baseline message received.
  */
-static inline uint32_t
-mavlink_msg_gps2_rtk_get_time_last_baseline_ms(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint32_t(msg, 0);
+static inline uint32_t mavlink_msg_gps2_rtk_get_time_last_baseline_ms(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  0);
 }
 
 /**
@@ -391,8 +451,9 @@ mavlink_msg_gps2_rtk_get_time_last_baseline_ms(const mavlink_message_t *msg) {
  *
  * @return  Identification of connected RTK receiver.
  */
-static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_receiver_id(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 30);
+static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_receiver_id(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  30);
 }
 
 /**
@@ -400,8 +461,9 @@ static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_receiver_id(const mavlink_mes
  *
  * @return  GPS Week Number of last baseline
  */
-static inline uint16_t mavlink_msg_gps2_rtk_get_wn(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint16_t(msg, 28);
+static inline uint16_t mavlink_msg_gps2_rtk_get_wn(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint16_t(msg,  28);
 }
 
 /**
@@ -409,8 +471,9 @@ static inline uint16_t mavlink_msg_gps2_rtk_get_wn(const mavlink_message_t *msg)
  *
  * @return [ms] GPS Time of Week of last baseline
  */
-static inline uint32_t mavlink_msg_gps2_rtk_get_tow(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint32_t(msg, 4);
+static inline uint32_t mavlink_msg_gps2_rtk_get_tow(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  4);
 }
 
 /**
@@ -418,8 +481,9 @@ static inline uint32_t mavlink_msg_gps2_rtk_get_tow(const mavlink_message_t *msg
  *
  * @return  GPS-specific health report for RTK data.
  */
-static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_health(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 31);
+static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_health(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  31);
 }
 
 /**
@@ -427,8 +491,9 @@ static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_health(const mavlink_message_
  *
  * @return [Hz] Rate of baseline messages being received by GPS
  */
-static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_rate(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 32);
+static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_rate(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  32);
 }
 
 /**
@@ -436,8 +501,9 @@ static inline uint8_t mavlink_msg_gps2_rtk_get_rtk_rate(const mavlink_message_t 
  *
  * @return  Current number of sats used for RTK calculation.
  */
-static inline uint8_t mavlink_msg_gps2_rtk_get_nsats(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 33);
+static inline uint8_t mavlink_msg_gps2_rtk_get_nsats(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  33);
 }
 
 /**
@@ -445,8 +511,9 @@ static inline uint8_t mavlink_msg_gps2_rtk_get_nsats(const mavlink_message_t *ms
  *
  * @return  Coordinate system of baseline
  */
-static inline uint8_t mavlink_msg_gps2_rtk_get_baseline_coords_type(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 34);
+static inline uint8_t mavlink_msg_gps2_rtk_get_baseline_coords_type(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  34);
 }
 
 /**
@@ -454,8 +521,9 @@ static inline uint8_t mavlink_msg_gps2_rtk_get_baseline_coords_type(const mavlin
  *
  * @return [mm] Current baseline in ECEF x or NED north component.
  */
-static inline int32_t mavlink_msg_gps2_rtk_get_baseline_a_mm(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int32_t(msg, 8);
+static inline int32_t mavlink_msg_gps2_rtk_get_baseline_a_mm(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  8);
 }
 
 /**
@@ -463,8 +531,9 @@ static inline int32_t mavlink_msg_gps2_rtk_get_baseline_a_mm(const mavlink_messa
  *
  * @return [mm] Current baseline in ECEF y or NED east component.
  */
-static inline int32_t mavlink_msg_gps2_rtk_get_baseline_b_mm(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int32_t(msg, 12);
+static inline int32_t mavlink_msg_gps2_rtk_get_baseline_b_mm(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  12);
 }
 
 /**
@@ -472,8 +541,9 @@ static inline int32_t mavlink_msg_gps2_rtk_get_baseline_b_mm(const mavlink_messa
  *
  * @return [mm] Current baseline in ECEF z or NED down component.
  */
-static inline int32_t mavlink_msg_gps2_rtk_get_baseline_c_mm(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int32_t(msg, 16);
+static inline int32_t mavlink_msg_gps2_rtk_get_baseline_c_mm(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  16);
 }
 
 /**
@@ -481,8 +551,9 @@ static inline int32_t mavlink_msg_gps2_rtk_get_baseline_c_mm(const mavlink_messa
  *
  * @return  Current estimate of baseline accuracy.
  */
-static inline uint32_t mavlink_msg_gps2_rtk_get_accuracy(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint32_t(msg, 20);
+static inline uint32_t mavlink_msg_gps2_rtk_get_accuracy(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  20);
 }
 
 /**
@@ -490,8 +561,9 @@ static inline uint32_t mavlink_msg_gps2_rtk_get_accuracy(const mavlink_message_t
  *
  * @return  Current number of integer ambiguity hypotheses.
  */
-static inline int32_t mavlink_msg_gps2_rtk_get_iar_num_hypotheses(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int32_t(msg, 24);
+static inline int32_t mavlink_msg_gps2_rtk_get_iar_num_hypotheses(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  24);
 }
 
 /**
@@ -500,8 +572,8 @@ static inline int32_t mavlink_msg_gps2_rtk_get_iar_num_hypotheses(const mavlink_
  * @param msg The message to decode
  * @param gps2_rtk C-struct to decode the message contents into
  */
-static inline void
-mavlink_msg_gps2_rtk_decode(const mavlink_message_t *msg, mavlink_gps2_rtk_t *gps2_rtk) {
+static inline void mavlink_msg_gps2_rtk_decode(const mavlink_message_t* msg, mavlink_gps2_rtk_t* gps2_rtk)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     gps2_rtk->time_last_baseline_ms = mavlink_msg_gps2_rtk_get_time_last_baseline_ms(msg);
     gps2_rtk->tow = mavlink_msg_gps2_rtk_get_tow(msg);
@@ -517,8 +589,8 @@ mavlink_msg_gps2_rtk_decode(const mavlink_message_t *msg, mavlink_gps2_rtk_t *gp
     gps2_rtk->nsats = mavlink_msg_gps2_rtk_get_nsats(msg);
     gps2_rtk->baseline_coords_type = mavlink_msg_gps2_rtk_get_baseline_coords_type(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_GPS2_RTK_LEN ? msg->len : MAVLINK_MSG_ID_GPS2_RTK_LEN;
-    memset(gps2_rtk, 0, MAVLINK_MSG_ID_GPS2_RTK_LEN);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_GPS2_RTK_LEN? msg->len : MAVLINK_MSG_ID_GPS2_RTK_LEN;
+        memset(gps2_rtk, 0, MAVLINK_MSG_ID_GPS2_RTK_LEN);
     memcpy(gps2_rtk, _MAV_PAYLOAD(msg), len);
 #endif
 }

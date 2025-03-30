@@ -3,16 +3,16 @@
 
 #define MAVLINK_MSG_ID_COLLISION 247
 
-MAVPACKED(
-        typedef struct __mavlink_collision_t {
-            uint32_t id; /*<  Unique identifier, domain based on src field*/
-            float time_to_minimum_delta; /*< [s] Estimated time until collision occurs*/
-            float altitude_minimum_delta; /*< [m] Closest vertical distance between vehicle and object*/
-            float horizontal_minimum_delta; /*< [m] Closest horizontal distance between vehicle and object*/
-            uint8_t src; /*<  Collision data source*/
-            uint8_t action; /*<  Action that is being taken to avoid this collision*/
-            uint8_t threat_level; /*<  How concerned the aircraft is about this collision*/
-        }) mavlink_collision_t;
+
+typedef struct __mavlink_collision_t {
+ uint32_t id; /*<  Unique identifier, domain based on src field*/
+ float time_to_minimum_delta; /*< [s] Estimated time until collision occurs*/
+ float altitude_minimum_delta; /*< [m] Closest vertical distance between vehicle and object*/
+ float horizontal_minimum_delta; /*< [m] Closest horizontal distance between vehicle and object*/
+ uint8_t src; /*<  Collision data source*/
+ uint8_t action; /*<  Action that is being taken to avoid this collision*/
+ uint8_t threat_level; /*<  How concerned the aircraft is about this collision*/
+} mavlink_collision_t;
 
 #define MAVLINK_MSG_ID_COLLISION_LEN 19
 #define MAVLINK_MSG_ID_COLLISION_MIN_LEN 19
@@ -21,6 +21,7 @@ MAVPACKED(
 
 #define MAVLINK_MSG_ID_COLLISION_CRC 81
 #define MAVLINK_MSG_ID_247_CRC 81
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -67,11 +68,9 @@ MAVPACKED(
  * @param horizontal_minimum_delta [m] Closest horizontal distance between vehicle and object
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_collision_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                           uint8_t src, uint32_t id, uint8_t action, uint8_t threat_level,
-                           float time_to_minimum_delta, float altitude_minimum_delta,
-                           float horizontal_minimum_delta) {
+static inline uint16_t mavlink_msg_collision_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint8_t src, uint32_t id, uint8_t action, uint8_t threat_level, float time_to_minimum_delta, float altitude_minimum_delta, float horizontal_minimum_delta)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_COLLISION_LEN];
     _mav_put_uint32_t(buf, 0, id);
@@ -93,12 +92,62 @@ mavlink_msg_collision_pack(uint8_t system_id, uint8_t component_id, mavlink_mess
     packet.action = action;
     packet.threat_level = threat_level;
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_COLLISION_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_COLLISION_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_COLLISION;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_COLLISION_MIN_LEN,
-                                    MAVLINK_MSG_ID_COLLISION_LEN, MAVLINK_MSG_ID_COLLISION_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_COLLISION_MIN_LEN, MAVLINK_MSG_ID_COLLISION_LEN, MAVLINK_MSG_ID_COLLISION_CRC);
+}
+
+/**
+ * @brief Pack a collision message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param src  Collision data source
+ * @param id  Unique identifier, domain based on src field
+ * @param action  Action that is being taken to avoid this collision
+ * @param threat_level  How concerned the aircraft is about this collision
+ * @param time_to_minimum_delta [s] Estimated time until collision occurs
+ * @param altitude_minimum_delta [m] Closest vertical distance between vehicle and object
+ * @param horizontal_minimum_delta [m] Closest horizontal distance between vehicle and object
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_collision_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint8_t src, uint32_t id, uint8_t action, uint8_t threat_level, float time_to_minimum_delta, float altitude_minimum_delta, float horizontal_minimum_delta)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_COLLISION_LEN];
+    _mav_put_uint32_t(buf, 0, id);
+    _mav_put_float(buf, 4, time_to_minimum_delta);
+    _mav_put_float(buf, 8, altitude_minimum_delta);
+    _mav_put_float(buf, 12, horizontal_minimum_delta);
+    _mav_put_uint8_t(buf, 16, src);
+    _mav_put_uint8_t(buf, 17, action);
+    _mav_put_uint8_t(buf, 18, threat_level);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_COLLISION_LEN);
+#else
+    mavlink_collision_t packet;
+    packet.id = id;
+    packet.time_to_minimum_delta = time_to_minimum_delta;
+    packet.altitude_minimum_delta = altitude_minimum_delta;
+    packet.horizontal_minimum_delta = horizontal_minimum_delta;
+    packet.src = src;
+    packet.action = action;
+    packet.threat_level = threat_level;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_COLLISION_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_COLLISION;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_COLLISION_MIN_LEN, MAVLINK_MSG_ID_COLLISION_LEN, MAVLINK_MSG_ID_COLLISION_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_COLLISION_MIN_LEN, MAVLINK_MSG_ID_COLLISION_LEN);
+#endif
 }
 
 /**
@@ -116,12 +165,10 @@ mavlink_msg_collision_pack(uint8_t system_id, uint8_t component_id, mavlink_mess
  * @param horizontal_minimum_delta [m] Closest horizontal distance between vehicle and object
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_collision_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                mavlink_message_t *msg,
-                                uint8_t src, uint32_t id, uint8_t action, uint8_t threat_level,
-                                float time_to_minimum_delta, float altitude_minimum_delta,
-                                float horizontal_minimum_delta) {
+static inline uint16_t mavlink_msg_collision_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint8_t src,uint32_t id,uint8_t action,uint8_t threat_level,float time_to_minimum_delta,float altitude_minimum_delta,float horizontal_minimum_delta)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_COLLISION_LEN];
     _mav_put_uint32_t(buf, 0, id);
@@ -143,14 +190,11 @@ mavlink_msg_collision_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t
     packet.action = action;
     packet.threat_level = threat_level;
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_COLLISION_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_COLLISION_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_COLLISION;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_COLLISION_MIN_LEN,
-                                         MAVLINK_MSG_ID_COLLISION_LEN,
-                                         MAVLINK_MSG_ID_COLLISION_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_COLLISION_MIN_LEN, MAVLINK_MSG_ID_COLLISION_LEN, MAVLINK_MSG_ID_COLLISION_CRC);
 }
 
 /**
@@ -161,14 +205,9 @@ mavlink_msg_collision_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param collision C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_collision_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                             const mavlink_collision_t *collision) {
-    return mavlink_msg_collision_pack(system_id, component_id, msg, collision->src, collision->id,
-                                      collision->action, collision->threat_level,
-                                      collision->time_to_minimum_delta,
-                                      collision->altitude_minimum_delta,
-                                      collision->horizontal_minimum_delta);
+static inline uint16_t mavlink_msg_collision_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_collision_t* collision)
+{
+    return mavlink_msg_collision_pack(system_id, component_id, msg, collision->src, collision->id, collision->action, collision->threat_level, collision->time_to_minimum_delta, collision->altitude_minimum_delta, collision->horizontal_minimum_delta);
 }
 
 /**
@@ -180,15 +219,23 @@ mavlink_msg_collision_encode(uint8_t system_id, uint8_t component_id, mavlink_me
  * @param msg The MAVLink message to compress the data into
  * @param collision C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_collision_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                  mavlink_message_t *msg, const mavlink_collision_t *collision) {
-    return mavlink_msg_collision_pack_chan(system_id, component_id, chan, msg, collision->src,
-                                           collision->id, collision->action,
-                                           collision->threat_level,
-                                           collision->time_to_minimum_delta,
-                                           collision->altitude_minimum_delta,
-                                           collision->horizontal_minimum_delta);
+static inline uint16_t mavlink_msg_collision_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_collision_t* collision)
+{
+    return mavlink_msg_collision_pack_chan(system_id, component_id, chan, msg, collision->src, collision->id, collision->action, collision->threat_level, collision->time_to_minimum_delta, collision->altitude_minimum_delta, collision->horizontal_minimum_delta);
+}
+
+/**
+ * @brief Encode a collision struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param collision C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_collision_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_collision_t* collision)
+{
+    return mavlink_msg_collision_pack_status(system_id, component_id, _status, msg,  collision->src, collision->id, collision->action, collision->threat_level, collision->time_to_minimum_delta, collision->altitude_minimum_delta, collision->horizontal_minimum_delta);
 }
 
 /**
@@ -248,7 +295,7 @@ static inline void mavlink_msg_collision_send_struct(mavlink_channel_t chan, con
 
 #if MAVLINK_MSG_ID_COLLISION_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -292,8 +339,9 @@ static inline void mavlink_msg_collision_send_buf(mavlink_message_t *msgbuf, mav
  *
  * @return  Collision data source
  */
-static inline uint8_t mavlink_msg_collision_get_src(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 16);
+static inline uint8_t mavlink_msg_collision_get_src(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  16);
 }
 
 /**
@@ -301,8 +349,9 @@ static inline uint8_t mavlink_msg_collision_get_src(const mavlink_message_t *msg
  *
  * @return  Unique identifier, domain based on src field
  */
-static inline uint32_t mavlink_msg_collision_get_id(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint32_t(msg, 0);
+static inline uint32_t mavlink_msg_collision_get_id(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint32_t(msg,  0);
 }
 
 /**
@@ -310,8 +359,9 @@ static inline uint32_t mavlink_msg_collision_get_id(const mavlink_message_t *msg
  *
  * @return  Action that is being taken to avoid this collision
  */
-static inline uint8_t mavlink_msg_collision_get_action(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 17);
+static inline uint8_t mavlink_msg_collision_get_action(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  17);
 }
 
 /**
@@ -319,8 +369,9 @@ static inline uint8_t mavlink_msg_collision_get_action(const mavlink_message_t *
  *
  * @return  How concerned the aircraft is about this collision
  */
-static inline uint8_t mavlink_msg_collision_get_threat_level(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 18);
+static inline uint8_t mavlink_msg_collision_get_threat_level(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  18);
 }
 
 /**
@@ -328,8 +379,9 @@ static inline uint8_t mavlink_msg_collision_get_threat_level(const mavlink_messa
  *
  * @return [s] Estimated time until collision occurs
  */
-static inline float mavlink_msg_collision_get_time_to_minimum_delta(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 4);
+static inline float mavlink_msg_collision_get_time_to_minimum_delta(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  4);
 }
 
 /**
@@ -337,8 +389,9 @@ static inline float mavlink_msg_collision_get_time_to_minimum_delta(const mavlin
  *
  * @return [m] Closest vertical distance between vehicle and object
  */
-static inline float mavlink_msg_collision_get_altitude_minimum_delta(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 8);
+static inline float mavlink_msg_collision_get_altitude_minimum_delta(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  8);
 }
 
 /**
@@ -346,9 +399,9 @@ static inline float mavlink_msg_collision_get_altitude_minimum_delta(const mavli
  *
  * @return [m] Closest horizontal distance between vehicle and object
  */
-static inline float
-mavlink_msg_collision_get_horizontal_minimum_delta(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 12);
+static inline float mavlink_msg_collision_get_horizontal_minimum_delta(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  12);
 }
 
 /**
@@ -357,8 +410,8 @@ mavlink_msg_collision_get_horizontal_minimum_delta(const mavlink_message_t *msg)
  * @param msg The message to decode
  * @param collision C-struct to decode the message contents into
  */
-static inline void
-mavlink_msg_collision_decode(const mavlink_message_t *msg, mavlink_collision_t *collision) {
+static inline void mavlink_msg_collision_decode(const mavlink_message_t* msg, mavlink_collision_t* collision)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     collision->id = mavlink_msg_collision_get_id(msg);
     collision->time_to_minimum_delta = mavlink_msg_collision_get_time_to_minimum_delta(msg);
@@ -368,8 +421,8 @@ mavlink_msg_collision_decode(const mavlink_message_t *msg, mavlink_collision_t *
     collision->action = mavlink_msg_collision_get_action(msg);
     collision->threat_level = mavlink_msg_collision_get_threat_level(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_COLLISION_LEN ? msg->len : MAVLINK_MSG_ID_COLLISION_LEN;
-    memset(collision, 0, MAVLINK_MSG_ID_COLLISION_LEN);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_COLLISION_LEN? msg->len : MAVLINK_MSG_ID_COLLISION_LEN;
+        memset(collision, 0, MAVLINK_MSG_ID_COLLISION_LEN);
     memcpy(collision, _MAV_PAYLOAD(msg), len);
 #endif
 }

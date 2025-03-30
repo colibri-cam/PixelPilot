@@ -3,17 +3,15 @@
 
 #define MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21 187
 
-MAVPACKED(
-        typedef struct __mavlink_serial_udb_extra_f21_t {
-            int16_t sue_accel_x_offset; /*<  SUE X accelerometer offset*/
-            int16_t sue_accel_y_offset; /*<  SUE Y accelerometer offset*/
-            int16_t sue_accel_z_offset; /*<  SUE Z accelerometer offset*/
-            int16_t sue_gyro_x_offset; /*<  SUE X gyro offset*/
-            int16_t sue_gyro_y_offset; /*<  SUE Y gyro offset*/
-            int16_t sue_gyro_z_offset; /*<  SUE Z gyro offset*/
-        })
 
-mavlink_serial_udb_extra_f21_t;
+typedef struct __mavlink_serial_udb_extra_f21_t {
+ int16_t sue_accel_x_offset; /*<  SUE X accelerometer offset*/
+ int16_t sue_accel_y_offset; /*<  SUE Y accelerometer offset*/
+ int16_t sue_accel_z_offset; /*<  SUE Z accelerometer offset*/
+ int16_t sue_gyro_x_offset; /*<  SUE X gyro offset*/
+ int16_t sue_gyro_y_offset; /*<  SUE Y gyro offset*/
+ int16_t sue_gyro_z_offset; /*<  SUE Z gyro offset*/
+} mavlink_serial_udb_extra_f21_t;
 
 #define MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN 12
 #define MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN 12
@@ -22,6 +20,7 @@ mavlink_serial_udb_extra_f21_t;
 
 #define MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_CRC 134
 #define MAVLINK_MSG_ID_187_CRC 134
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -65,12 +64,9 @@ mavlink_serial_udb_extra_f21_t;
  * @param sue_gyro_z_offset  SUE Z gyro offset
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_serial_udb_extra_f21_pack(uint8_t system_id, uint8_t component_id,
-                                      mavlink_message_t *msg,
-                                      int16_t sue_accel_x_offset, int16_t sue_accel_y_offset,
-                                      int16_t sue_accel_z_offset, int16_t sue_gyro_x_offset,
-                                      int16_t sue_gyro_y_offset, int16_t sue_gyro_z_offset) {
+static inline uint16_t mavlink_msg_serial_udb_extra_f21_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               int16_t sue_accel_x_offset, int16_t sue_accel_y_offset, int16_t sue_accel_z_offset, int16_t sue_gyro_x_offset, int16_t sue_gyro_y_offset, int16_t sue_gyro_z_offset)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN];
     _mav_put_int16_t(buf, 0, sue_accel_x_offset);
@@ -80,7 +76,7 @@ mavlink_msg_serial_udb_extra_f21_pack(uint8_t system_id, uint8_t component_id,
     _mav_put_int16_t(buf, 8, sue_gyro_y_offset);
     _mav_put_int16_t(buf, 10, sue_gyro_z_offset);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
 #else
     mavlink_serial_udb_extra_f21_t packet;
     packet.sue_accel_x_offset = sue_accel_x_offset;
@@ -94,10 +90,55 @@ mavlink_msg_serial_udb_extra_f21_pack(uint8_t system_id, uint8_t component_id,
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN,
-                                    MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN,
-                                    MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_CRC);
+}
+
+/**
+ * @brief Pack a serial_udb_extra_f21 message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param sue_accel_x_offset  SUE X accelerometer offset
+ * @param sue_accel_y_offset  SUE Y accelerometer offset
+ * @param sue_accel_z_offset  SUE Z accelerometer offset
+ * @param sue_gyro_x_offset  SUE X gyro offset
+ * @param sue_gyro_y_offset  SUE Y gyro offset
+ * @param sue_gyro_z_offset  SUE Z gyro offset
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_serial_udb_extra_f21_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               int16_t sue_accel_x_offset, int16_t sue_accel_y_offset, int16_t sue_accel_z_offset, int16_t sue_gyro_x_offset, int16_t sue_gyro_y_offset, int16_t sue_gyro_z_offset)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN];
+    _mav_put_int16_t(buf, 0, sue_accel_x_offset);
+    _mav_put_int16_t(buf, 2, sue_accel_y_offset);
+    _mav_put_int16_t(buf, 4, sue_accel_z_offset);
+    _mav_put_int16_t(buf, 6, sue_gyro_x_offset);
+    _mav_put_int16_t(buf, 8, sue_gyro_y_offset);
+    _mav_put_int16_t(buf, 10, sue_gyro_z_offset);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
+#else
+    mavlink_serial_udb_extra_f21_t packet;
+    packet.sue_accel_x_offset = sue_accel_x_offset;
+    packet.sue_accel_y_offset = sue_accel_y_offset;
+    packet.sue_accel_z_offset = sue_accel_z_offset;
+    packet.sue_gyro_x_offset = sue_gyro_x_offset;
+    packet.sue_gyro_y_offset = sue_gyro_y_offset;
+    packet.sue_gyro_z_offset = sue_gyro_z_offset;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
+#endif
 }
 
 /**
@@ -114,12 +155,10 @@ mavlink_msg_serial_udb_extra_f21_pack(uint8_t system_id, uint8_t component_id,
  * @param sue_gyro_z_offset  SUE Z gyro offset
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_serial_udb_extra_f21_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                           mavlink_message_t *msg,
-                                           int16_t sue_accel_x_offset, int16_t sue_accel_y_offset,
-                                           int16_t sue_accel_z_offset, int16_t sue_gyro_x_offset,
-                                           int16_t sue_gyro_y_offset, int16_t sue_gyro_z_offset) {
+static inline uint16_t mavlink_msg_serial_udb_extra_f21_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   int16_t sue_accel_x_offset,int16_t sue_accel_y_offset,int16_t sue_accel_z_offset,int16_t sue_gyro_x_offset,int16_t sue_gyro_y_offset,int16_t sue_gyro_z_offset)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN];
     _mav_put_int16_t(buf, 0, sue_accel_x_offset);
@@ -129,7 +168,7 @@ mavlink_msg_serial_udb_extra_f21_pack_chan(uint8_t system_id, uint8_t component_
     _mav_put_int16_t(buf, 8, sue_gyro_y_offset);
     _mav_put_int16_t(buf, 10, sue_gyro_z_offset);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
 #else
     mavlink_serial_udb_extra_f21_t packet;
     packet.sue_accel_x_offset = sue_accel_x_offset;
@@ -143,10 +182,7 @@ mavlink_msg_serial_udb_extra_f21_pack_chan(uint8_t system_id, uint8_t component_
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN,
-                                         MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN,
-                                         MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_MIN_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_CRC);
 }
 
 /**
@@ -157,17 +193,9 @@ mavlink_msg_serial_udb_extra_f21_pack_chan(uint8_t system_id, uint8_t component_
  * @param msg The MAVLink message to compress the data into
  * @param serial_udb_extra_f21 C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_serial_udb_extra_f21_encode(uint8_t system_id, uint8_t component_id,
-                                        mavlink_message_t *msg,
-                                        const mavlink_serial_udb_extra_f21_t *serial_udb_extra_f21) {
-    return mavlink_msg_serial_udb_extra_f21_pack(system_id, component_id, msg,
-                                                 serial_udb_extra_f21->sue_accel_x_offset,
-                                                 serial_udb_extra_f21->sue_accel_y_offset,
-                                                 serial_udb_extra_f21->sue_accel_z_offset,
-                                                 serial_udb_extra_f21->sue_gyro_x_offset,
-                                                 serial_udb_extra_f21->sue_gyro_y_offset,
-                                                 serial_udb_extra_f21->sue_gyro_z_offset);
+static inline uint16_t mavlink_msg_serial_udb_extra_f21_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_serial_udb_extra_f21_t* serial_udb_extra_f21)
+{
+    return mavlink_msg_serial_udb_extra_f21_pack(system_id, component_id, msg, serial_udb_extra_f21->sue_accel_x_offset, serial_udb_extra_f21->sue_accel_y_offset, serial_udb_extra_f21->sue_accel_z_offset, serial_udb_extra_f21->sue_gyro_x_offset, serial_udb_extra_f21->sue_gyro_y_offset, serial_udb_extra_f21->sue_gyro_z_offset);
 }
 
 /**
@@ -179,17 +207,23 @@ mavlink_msg_serial_udb_extra_f21_encode(uint8_t system_id, uint8_t component_id,
  * @param msg The MAVLink message to compress the data into
  * @param serial_udb_extra_f21 C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_serial_udb_extra_f21_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                             mavlink_message_t *msg,
-                                             const mavlink_serial_udb_extra_f21_t *serial_udb_extra_f21) {
-    return mavlink_msg_serial_udb_extra_f21_pack_chan(system_id, component_id, chan, msg,
-                                                      serial_udb_extra_f21->sue_accel_x_offset,
-                                                      serial_udb_extra_f21->sue_accel_y_offset,
-                                                      serial_udb_extra_f21->sue_accel_z_offset,
-                                                      serial_udb_extra_f21->sue_gyro_x_offset,
-                                                      serial_udb_extra_f21->sue_gyro_y_offset,
-                                                      serial_udb_extra_f21->sue_gyro_z_offset);
+static inline uint16_t mavlink_msg_serial_udb_extra_f21_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_serial_udb_extra_f21_t* serial_udb_extra_f21)
+{
+    return mavlink_msg_serial_udb_extra_f21_pack_chan(system_id, component_id, chan, msg, serial_udb_extra_f21->sue_accel_x_offset, serial_udb_extra_f21->sue_accel_y_offset, serial_udb_extra_f21->sue_accel_z_offset, serial_udb_extra_f21->sue_gyro_x_offset, serial_udb_extra_f21->sue_gyro_y_offset, serial_udb_extra_f21->sue_gyro_z_offset);
+}
+
+/**
+ * @brief Encode a serial_udb_extra_f21 struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param serial_udb_extra_f21 C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_serial_udb_extra_f21_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_serial_udb_extra_f21_t* serial_udb_extra_f21)
+{
+    return mavlink_msg_serial_udb_extra_f21_pack_status(system_id, component_id, _status, msg,  serial_udb_extra_f21->sue_accel_x_offset, serial_udb_extra_f21->sue_accel_y_offset, serial_udb_extra_f21->sue_accel_z_offset, serial_udb_extra_f21->sue_gyro_x_offset, serial_udb_extra_f21->sue_gyro_y_offset, serial_udb_extra_f21->sue_gyro_z_offset);
 }
 
 /**
@@ -246,7 +280,7 @@ static inline void mavlink_msg_serial_udb_extra_f21_send_struct(mavlink_channel_
 
 #if MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -288,9 +322,9 @@ static inline void mavlink_msg_serial_udb_extra_f21_send_buf(mavlink_message_t *
  *
  * @return  SUE X accelerometer offset
  */
-static inline int16_t
-mavlink_msg_serial_udb_extra_f21_get_sue_accel_x_offset(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int16_t(msg, 0);
+static inline int16_t mavlink_msg_serial_udb_extra_f21_get_sue_accel_x_offset(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  0);
 }
 
 /**
@@ -298,9 +332,9 @@ mavlink_msg_serial_udb_extra_f21_get_sue_accel_x_offset(const mavlink_message_t 
  *
  * @return  SUE Y accelerometer offset
  */
-static inline int16_t
-mavlink_msg_serial_udb_extra_f21_get_sue_accel_y_offset(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int16_t(msg, 2);
+static inline int16_t mavlink_msg_serial_udb_extra_f21_get_sue_accel_y_offset(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  2);
 }
 
 /**
@@ -308,9 +342,9 @@ mavlink_msg_serial_udb_extra_f21_get_sue_accel_y_offset(const mavlink_message_t 
  *
  * @return  SUE Z accelerometer offset
  */
-static inline int16_t
-mavlink_msg_serial_udb_extra_f21_get_sue_accel_z_offset(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int16_t(msg, 4);
+static inline int16_t mavlink_msg_serial_udb_extra_f21_get_sue_accel_z_offset(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  4);
 }
 
 /**
@@ -318,9 +352,9 @@ mavlink_msg_serial_udb_extra_f21_get_sue_accel_z_offset(const mavlink_message_t 
  *
  * @return  SUE X gyro offset
  */
-static inline int16_t
-mavlink_msg_serial_udb_extra_f21_get_sue_gyro_x_offset(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int16_t(msg, 6);
+static inline int16_t mavlink_msg_serial_udb_extra_f21_get_sue_gyro_x_offset(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  6);
 }
 
 /**
@@ -328,9 +362,9 @@ mavlink_msg_serial_udb_extra_f21_get_sue_gyro_x_offset(const mavlink_message_t *
  *
  * @return  SUE Y gyro offset
  */
-static inline int16_t
-mavlink_msg_serial_udb_extra_f21_get_sue_gyro_y_offset(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int16_t(msg, 8);
+static inline int16_t mavlink_msg_serial_udb_extra_f21_get_sue_gyro_y_offset(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  8);
 }
 
 /**
@@ -338,9 +372,9 @@ mavlink_msg_serial_udb_extra_f21_get_sue_gyro_y_offset(const mavlink_message_t *
  *
  * @return  SUE Z gyro offset
  */
-static inline int16_t
-mavlink_msg_serial_udb_extra_f21_get_sue_gyro_z_offset(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int16_t(msg, 10);
+static inline int16_t mavlink_msg_serial_udb_extra_f21_get_sue_gyro_z_offset(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int16_t(msg,  10);
 }
 
 /**
@@ -349,24 +383,18 @@ mavlink_msg_serial_udb_extra_f21_get_sue_gyro_z_offset(const mavlink_message_t *
  * @param msg The message to decode
  * @param serial_udb_extra_f21 C-struct to decode the message contents into
  */
-static inline void mavlink_msg_serial_udb_extra_f21_decode(const mavlink_message_t *msg,
-                                                           mavlink_serial_udb_extra_f21_t *serial_udb_extra_f21) {
+static inline void mavlink_msg_serial_udb_extra_f21_decode(const mavlink_message_t* msg, mavlink_serial_udb_extra_f21_t* serial_udb_extra_f21)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
-    serial_udb_extra_f21->sue_accel_x_offset = mavlink_msg_serial_udb_extra_f21_get_sue_accel_x_offset(
-            msg);
-    serial_udb_extra_f21->sue_accel_y_offset = mavlink_msg_serial_udb_extra_f21_get_sue_accel_y_offset(
-            msg);
-    serial_udb_extra_f21->sue_accel_z_offset = mavlink_msg_serial_udb_extra_f21_get_sue_accel_z_offset(
-            msg);
-    serial_udb_extra_f21->sue_gyro_x_offset = mavlink_msg_serial_udb_extra_f21_get_sue_gyro_x_offset(
-            msg);
-    serial_udb_extra_f21->sue_gyro_y_offset = mavlink_msg_serial_udb_extra_f21_get_sue_gyro_y_offset(
-            msg);
-    serial_udb_extra_f21->sue_gyro_z_offset = mavlink_msg_serial_udb_extra_f21_get_sue_gyro_z_offset(
-            msg);
+    serial_udb_extra_f21->sue_accel_x_offset = mavlink_msg_serial_udb_extra_f21_get_sue_accel_x_offset(msg);
+    serial_udb_extra_f21->sue_accel_y_offset = mavlink_msg_serial_udb_extra_f21_get_sue_accel_y_offset(msg);
+    serial_udb_extra_f21->sue_accel_z_offset = mavlink_msg_serial_udb_extra_f21_get_sue_accel_z_offset(msg);
+    serial_udb_extra_f21->sue_gyro_x_offset = mavlink_msg_serial_udb_extra_f21_get_sue_gyro_x_offset(msg);
+    serial_udb_extra_f21->sue_gyro_y_offset = mavlink_msg_serial_udb_extra_f21_get_sue_gyro_y_offset(msg);
+    serial_udb_extra_f21->sue_gyro_z_offset = mavlink_msg_serial_udb_extra_f21_get_sue_gyro_z_offset(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN? msg->len : MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN;
-    memset(serial_udb_extra_f21, 0, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
-memcpy(serial_udb_extra_f21, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN? msg->len : MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN;
+        memset(serial_udb_extra_f21, 0, MAVLINK_MSG_ID_SERIAL_UDB_EXTRA_F21_LEN);
+    memcpy(serial_udb_extra_f21, _MAV_PAYLOAD(msg), len);
 #endif
 }

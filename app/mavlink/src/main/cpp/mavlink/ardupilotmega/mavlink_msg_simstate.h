@@ -3,22 +3,20 @@
 
 #define MAVLINK_MSG_ID_SIMSTATE 164
 
-MAVPACKED(
-        typedef struct __mavlink_simstate_t {
-            float roll; /*< [rad] Roll angle.*/
-            float pitch; /*< [rad] Pitch angle.*/
-            float yaw; /*< [rad] Yaw angle.*/
-            float xacc; /*< [m/s/s] X acceleration.*/
-            float yacc; /*< [m/s/s] Y acceleration.*/
-            float zacc; /*< [m/s/s] Z acceleration.*/
-            float xgyro; /*< [rad/s] Angular speed around X axis.*/
-            float ygyro; /*< [rad/s] Angular speed around Y axis.*/
-            float zgyro; /*< [rad/s] Angular speed around Z axis.*/
-            int32_t lat; /*< [degE7] Latitude.*/
-            int32_t lng; /*< [degE7] Longitude.*/
-        })
 
-mavlink_simstate_t;
+typedef struct __mavlink_simstate_t {
+ float roll; /*< [rad] Roll angle.*/
+ float pitch; /*< [rad] Pitch angle.*/
+ float yaw; /*< [rad] Yaw angle.*/
+ float xacc; /*< [m/s/s] X acceleration.*/
+ float yacc; /*< [m/s/s] Y acceleration.*/
+ float zacc; /*< [m/s/s] Z acceleration.*/
+ float xgyro; /*< [rad/s] Angular speed around X axis.*/
+ float ygyro; /*< [rad/s] Angular speed around Y axis.*/
+ float zgyro; /*< [rad/s] Angular speed around Z axis.*/
+ int32_t lat; /*< [degE7] Latitude.*/
+ int32_t lng; /*< [degE7] Longitude.*/
+} mavlink_simstate_t;
 
 #define MAVLINK_MSG_ID_SIMSTATE_LEN 44
 #define MAVLINK_MSG_ID_SIMSTATE_MIN_LEN 44
@@ -27,6 +25,7 @@ mavlink_simstate_t;
 
 #define MAVLINK_MSG_ID_SIMSTATE_CRC 154
 #define MAVLINK_MSG_ID_164_CRC 154
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -85,10 +84,9 @@ mavlink_simstate_t;
  * @param lng [degE7] Longitude.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_simstate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                          float roll, float pitch, float yaw, float xacc, float yacc, float zacc,
-                          float xgyro, float ygyro, float zgyro, int32_t lat, int32_t lng) {
+static inline uint16_t mavlink_msg_simstate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, int32_t lat, int32_t lng)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMSTATE_LEN];
     _mav_put_float(buf, 0, roll);
@@ -103,7 +101,7 @@ mavlink_msg_simstate_pack(uint8_t system_id, uint8_t component_id, mavlink_messa
     _mav_put_int32_t(buf, 36, lat);
     _mav_put_int32_t(buf, 40, lng);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMSTATE_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMSTATE_LEN);
 #else
     mavlink_simstate_t packet;
     packet.roll = roll;
@@ -122,8 +120,70 @@ mavlink_msg_simstate_pack(uint8_t system_id, uint8_t component_id, mavlink_messa
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SIMSTATE;
-    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SIMSTATE_MIN_LEN,
-                                    MAVLINK_MSG_ID_SIMSTATE_LEN, MAVLINK_MSG_ID_SIMSTATE_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SIMSTATE_MIN_LEN, MAVLINK_MSG_ID_SIMSTATE_LEN, MAVLINK_MSG_ID_SIMSTATE_CRC);
+}
+
+/**
+ * @brief Pack a simstate message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param roll [rad] Roll angle.
+ * @param pitch [rad] Pitch angle.
+ * @param yaw [rad] Yaw angle.
+ * @param xacc [m/s/s] X acceleration.
+ * @param yacc [m/s/s] Y acceleration.
+ * @param zacc [m/s/s] Z acceleration.
+ * @param xgyro [rad/s] Angular speed around X axis.
+ * @param ygyro [rad/s] Angular speed around Y axis.
+ * @param zgyro [rad/s] Angular speed around Z axis.
+ * @param lat [degE7] Latitude.
+ * @param lng [degE7] Longitude.
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_simstate_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, int32_t lat, int32_t lng)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_SIMSTATE_LEN];
+    _mav_put_float(buf, 0, roll);
+    _mav_put_float(buf, 4, pitch);
+    _mav_put_float(buf, 8, yaw);
+    _mav_put_float(buf, 12, xacc);
+    _mav_put_float(buf, 16, yacc);
+    _mav_put_float(buf, 20, zacc);
+    _mav_put_float(buf, 24, xgyro);
+    _mav_put_float(buf, 28, ygyro);
+    _mav_put_float(buf, 32, zgyro);
+    _mav_put_int32_t(buf, 36, lat);
+    _mav_put_int32_t(buf, 40, lng);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMSTATE_LEN);
+#else
+    mavlink_simstate_t packet;
+    packet.roll = roll;
+    packet.pitch = pitch;
+    packet.yaw = yaw;
+    packet.xacc = xacc;
+    packet.yacc = yacc;
+    packet.zacc = zacc;
+    packet.xgyro = xgyro;
+    packet.ygyro = ygyro;
+    packet.zgyro = zgyro;
+    packet.lat = lat;
+    packet.lng = lng;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SIMSTATE_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_SIMSTATE;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SIMSTATE_MIN_LEN, MAVLINK_MSG_ID_SIMSTATE_LEN, MAVLINK_MSG_ID_SIMSTATE_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SIMSTATE_MIN_LEN, MAVLINK_MSG_ID_SIMSTATE_LEN);
+#endif
 }
 
 /**
@@ -145,12 +205,10 @@ mavlink_msg_simstate_pack(uint8_t system_id, uint8_t component_id, mavlink_messa
  * @param lng [degE7] Longitude.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_simstate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                               mavlink_message_t *msg,
-                               float roll, float pitch, float yaw, float xacc, float yacc,
-                               float zacc, float xgyro, float ygyro, float zgyro, int32_t lat,
-                               int32_t lng) {
+static inline uint16_t mavlink_msg_simstate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   float roll,float pitch,float yaw,float xacc,float yacc,float zacc,float xgyro,float ygyro,float zgyro,int32_t lat,int32_t lng)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIMSTATE_LEN];
     _mav_put_float(buf, 0, roll);
@@ -165,7 +223,7 @@ mavlink_msg_simstate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t 
     _mav_put_int32_t(buf, 36, lat);
     _mav_put_int32_t(buf, 40, lng);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMSTATE_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SIMSTATE_LEN);
 #else
     mavlink_simstate_t packet;
     packet.roll = roll;
@@ -184,9 +242,7 @@ mavlink_msg_simstate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t 
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SIMSTATE;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_SIMSTATE_MIN_LEN,
-                                         MAVLINK_MSG_ID_SIMSTATE_LEN, MAVLINK_MSG_ID_SIMSTATE_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SIMSTATE_MIN_LEN, MAVLINK_MSG_ID_SIMSTATE_LEN, MAVLINK_MSG_ID_SIMSTATE_CRC);
 }
 
 /**
@@ -197,13 +253,9 @@ mavlink_msg_simstate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param simstate C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_simstate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                            const mavlink_simstate_t *simstate) {
-    return mavlink_msg_simstate_pack(system_id, component_id, msg, simstate->roll, simstate->pitch,
-                                     simstate->yaw, simstate->xacc, simstate->yacc, simstate->zacc,
-                                     simstate->xgyro, simstate->ygyro, simstate->zgyro,
-                                     simstate->lat, simstate->lng);
+static inline uint16_t mavlink_msg_simstate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_simstate_t* simstate)
+{
+    return mavlink_msg_simstate_pack(system_id, component_id, msg, simstate->roll, simstate->pitch, simstate->yaw, simstate->xacc, simstate->yacc, simstate->zacc, simstate->xgyro, simstate->ygyro, simstate->zgyro, simstate->lat, simstate->lng);
 }
 
 /**
@@ -215,14 +267,23 @@ mavlink_msg_simstate_encode(uint8_t system_id, uint8_t component_id, mavlink_mes
  * @param msg The MAVLink message to compress the data into
  * @param simstate C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_simstate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                 mavlink_message_t *msg, const mavlink_simstate_t *simstate) {
-    return mavlink_msg_simstate_pack_chan(system_id, component_id, chan, msg, simstate->roll,
-                                          simstate->pitch, simstate->yaw, simstate->xacc,
-                                          simstate->yacc, simstate->zacc, simstate->xgyro,
-                                          simstate->ygyro, simstate->zgyro, simstate->lat,
-                                          simstate->lng);
+static inline uint16_t mavlink_msg_simstate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_simstate_t* simstate)
+{
+    return mavlink_msg_simstate_pack_chan(system_id, component_id, chan, msg, simstate->roll, simstate->pitch, simstate->yaw, simstate->xacc, simstate->yacc, simstate->zacc, simstate->xgyro, simstate->ygyro, simstate->zgyro, simstate->lat, simstate->lng);
+}
+
+/**
+ * @brief Encode a simstate struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param simstate C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_simstate_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_simstate_t* simstate)
+{
+    return mavlink_msg_simstate_pack_status(system_id, component_id, _status, msg,  simstate->roll, simstate->pitch, simstate->yaw, simstate->xacc, simstate->yacc, simstate->zacc, simstate->xgyro, simstate->ygyro, simstate->zgyro, simstate->lat, simstate->lng);
 }
 
 /**
@@ -294,7 +355,7 @@ static inline void mavlink_msg_simstate_send_struct(mavlink_channel_t chan, cons
 
 #if MAVLINK_MSG_ID_SIMSTATE_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -346,8 +407,9 @@ static inline void mavlink_msg_simstate_send_buf(mavlink_message_t *msgbuf, mavl
  *
  * @return [rad] Roll angle.
  */
-static inline float mavlink_msg_simstate_get_roll(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 0);
+static inline float mavlink_msg_simstate_get_roll(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  0);
 }
 
 /**
@@ -355,8 +417,9 @@ static inline float mavlink_msg_simstate_get_roll(const mavlink_message_t *msg) 
  *
  * @return [rad] Pitch angle.
  */
-static inline float mavlink_msg_simstate_get_pitch(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 4);
+static inline float mavlink_msg_simstate_get_pitch(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  4);
 }
 
 /**
@@ -364,8 +427,9 @@ static inline float mavlink_msg_simstate_get_pitch(const mavlink_message_t *msg)
  *
  * @return [rad] Yaw angle.
  */
-static inline float mavlink_msg_simstate_get_yaw(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 8);
+static inline float mavlink_msg_simstate_get_yaw(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  8);
 }
 
 /**
@@ -373,8 +437,9 @@ static inline float mavlink_msg_simstate_get_yaw(const mavlink_message_t *msg) {
  *
  * @return [m/s/s] X acceleration.
  */
-static inline float mavlink_msg_simstate_get_xacc(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 12);
+static inline float mavlink_msg_simstate_get_xacc(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  12);
 }
 
 /**
@@ -382,8 +447,9 @@ static inline float mavlink_msg_simstate_get_xacc(const mavlink_message_t *msg) 
  *
  * @return [m/s/s] Y acceleration.
  */
-static inline float mavlink_msg_simstate_get_yacc(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 16);
+static inline float mavlink_msg_simstate_get_yacc(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  16);
 }
 
 /**
@@ -391,8 +457,9 @@ static inline float mavlink_msg_simstate_get_yacc(const mavlink_message_t *msg) 
  *
  * @return [m/s/s] Z acceleration.
  */
-static inline float mavlink_msg_simstate_get_zacc(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 20);
+static inline float mavlink_msg_simstate_get_zacc(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  20);
 }
 
 /**
@@ -400,8 +467,9 @@ static inline float mavlink_msg_simstate_get_zacc(const mavlink_message_t *msg) 
  *
  * @return [rad/s] Angular speed around X axis.
  */
-static inline float mavlink_msg_simstate_get_xgyro(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 24);
+static inline float mavlink_msg_simstate_get_xgyro(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  24);
 }
 
 /**
@@ -409,8 +477,9 @@ static inline float mavlink_msg_simstate_get_xgyro(const mavlink_message_t *msg)
  *
  * @return [rad/s] Angular speed around Y axis.
  */
-static inline float mavlink_msg_simstate_get_ygyro(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 28);
+static inline float mavlink_msg_simstate_get_ygyro(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  28);
 }
 
 /**
@@ -418,8 +487,9 @@ static inline float mavlink_msg_simstate_get_ygyro(const mavlink_message_t *msg)
  *
  * @return [rad/s] Angular speed around Z axis.
  */
-static inline float mavlink_msg_simstate_get_zgyro(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 32);
+static inline float mavlink_msg_simstate_get_zgyro(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  32);
 }
 
 /**
@@ -427,8 +497,9 @@ static inline float mavlink_msg_simstate_get_zgyro(const mavlink_message_t *msg)
  *
  * @return [degE7] Latitude.
  */
-static inline int32_t mavlink_msg_simstate_get_lat(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int32_t(msg, 36);
+static inline int32_t mavlink_msg_simstate_get_lat(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  36);
 }
 
 /**
@@ -436,8 +507,9 @@ static inline int32_t mavlink_msg_simstate_get_lat(const mavlink_message_t *msg)
  *
  * @return [degE7] Longitude.
  */
-static inline int32_t mavlink_msg_simstate_get_lng(const mavlink_message_t *msg) {
-    return _MAV_RETURN_int32_t(msg, 40);
+static inline int32_t mavlink_msg_simstate_get_lng(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_int32_t(msg,  40);
 }
 
 /**
@@ -446,8 +518,8 @@ static inline int32_t mavlink_msg_simstate_get_lng(const mavlink_message_t *msg)
  * @param msg The message to decode
  * @param simstate C-struct to decode the message contents into
  */
-static inline void
-mavlink_msg_simstate_decode(const mavlink_message_t *msg, mavlink_simstate_t *simstate) {
+static inline void mavlink_msg_simstate_decode(const mavlink_message_t* msg, mavlink_simstate_t* simstate)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     simstate->roll = mavlink_msg_simstate_get_roll(msg);
     simstate->pitch = mavlink_msg_simstate_get_pitch(msg);
@@ -461,8 +533,8 @@ mavlink_msg_simstate_decode(const mavlink_message_t *msg, mavlink_simstate_t *si
     simstate->lat = mavlink_msg_simstate_get_lat(msg);
     simstate->lng = mavlink_msg_simstate_get_lng(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_SIMSTATE_LEN? msg->len : MAVLINK_MSG_ID_SIMSTATE_LEN;
-    memset(simstate, 0, MAVLINK_MSG_ID_SIMSTATE_LEN);
-memcpy(simstate, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_SIMSTATE_LEN? msg->len : MAVLINK_MSG_ID_SIMSTATE_LEN;
+        memset(simstate, 0, MAVLINK_MSG_ID_SIMSTATE_LEN);
+    memcpy(simstate, _MAV_PAYLOAD(msg), len);
 #endif
 }

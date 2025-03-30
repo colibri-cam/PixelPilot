@@ -25,7 +25,7 @@ Feel free to send pull requests to add new supported wifi adapters hardware IDs.
 Now support saving a dvr of the video feed to `Files/Internal Storage/Movies/`
 
 ## Compatibility
-- arm64-v8a, armeabi-v7a android devices (including Meta Quest 2/3, non vr mode)
+- arm64-v8a, armeabi-v7a androidtes (including Meta Quest 2/3, non vr mode)
 
 ## Build
 ```

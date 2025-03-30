@@ -197,11 +197,6 @@ void *listen(int mavlink_port) {
                         memcpy(latestMavlinkData.status_text, szBuff, 101);
                         break;
 
-                    case MAVLINK_MSG_ID_STATUSTEXT_LONG:
-                        mavlink_msg_statustext_long_get_text(&msgMav, szBuff);
-                        memcpy(latestMavlinkData.status_text, szBuff, 101);
-                        break;
-
                     case MAVLINK_MSG_ID_SYS_STATUS: {
                         mavlink_sys_status_t bat;
                         mavlink_msg_sys_status_decode(&msgMav, &bat);
@@ -305,6 +300,12 @@ void *listen(int mavlink_port) {
                     }
                         break;
 
+                    case MAVLINK_MSG_ID_RAW_IMU: {
+                        latestMavlinkData.temperature = mavlink_msg_raw_imu_get_temperature(&msgMav);
+                        latestMavlinkDataChange = true;
+                    }
+                        break;
+
                     default:
                         //printf("mavlink msg %d from %d/%d\n",
                                //msgMav.msgid, msgMav.sysid, msgMav.compid);
@@ -330,7 +331,7 @@ Java_com_openipc_mavlink_MavlinkNative_nativeCallBack(JNIEnv *env, jclass clazz,
         jclass jcMavlinkData = env->FindClass("com/openipc/mavlink/MavlinkData");
         assert(jcMavlinkData != nullptr);
         jmethodID jcMavlinkDataConstructor = env->GetMethodID(jcMavlinkData, "<init>",
-                                                              "(FFFFFFFDDDDDDFFFFBBBBBBLjava/lang/String;)V");
+                                                              "(FFFFFFFDDDDDDFFFFFBBBBBBLjava/lang/String;)V");
         assert(jcMavlinkDataConstructor != nullptr);
         jstring pJstring = env->NewStringUTF(latestMavlinkData.status_text);
         auto mavlinkData = env->NewObject(jcMavlinkData, jcMavlinkDataConstructor,
@@ -351,6 +352,7 @@ Java_com_openipc_mavlink_MavlinkNative_nativeCallBack(JNIEnv *env, jclass clazz,
                                           (jfloat) latestMavlinkData.telemetry_gspeed,
                                           (jfloat) latestMavlinkData.telemetry_vspeed,
                                           (jfloat) latestMavlinkData.telemetry_throttle,
+                                          (jfloat) latestMavlinkData.temperature,
                                           (jbyte) latestMavlinkData.telemetry_arm,
                                           (jbyte) latestMavlinkData.flight_mode,
                                           (jbyte) latestMavlinkData.gps_fix_type,

@@ -1,51 +1,50 @@
 #pragma once
 // MESSAGE ASLCTRL_DATA PACKING
 
-#define MAVLINK_MSG_ID_ASLCTRL_DATA 203
+#define MAVLINK_MSG_ID_ASLCTRL_DATA 8004
 
-MAVPACKED(
-        typedef struct __mavlink_aslctrl_data_t {
-            uint64_t timestamp; /*< [us]  Timestamp*/
-            float h; /*<   See sourcecode for a description of these values... */
-            float hRef; /*<   */
-            float hRef_t; /*<   */
-            float PitchAngle; /*< [deg] Pitch angle*/
-            float PitchAngleRef; /*< [deg] Pitch angle reference*/
-            float q; /*<   */
-            float qRef; /*<   */
-            float uElev; /*<   */
-            float uThrot; /*<   */
-            float uThrot2; /*<   */
-            float nZ; /*<   */
-            float AirspeedRef; /*< [m/s] Airspeed reference*/
-            float YawAngle; /*< [deg] Yaw angle*/
-            float YawAngleRef; /*< [deg] Yaw angle reference*/
-            float RollAngle; /*< [deg] Roll angle*/
-            float RollAngleRef; /*< [deg] Roll angle reference*/
-            float p; /*<   */
-            float pRef; /*<   */
-            float r; /*<   */
-            float rRef; /*<   */
-            float uAil; /*<   */
-            float uRud; /*<   */
-            uint8_t aslctrl_mode; /*<   ASLCTRL control-mode (manual, stabilized, auto, etc...)*/
-            uint8_t SpoilersEngaged; /*<   */
-        })
 
-mavlink_aslctrl_data_t;
+typedef struct __mavlink_aslctrl_data_t {
+ uint64_t timestamp; /*< [us]  Timestamp*/
+ float h; /*<   See sourcecode for a description of these values... */
+ float hRef; /*<   */
+ float hRef_t; /*<   */
+ float PitchAngle; /*< [deg] Pitch angle*/
+ float PitchAngleRef; /*< [deg] Pitch angle reference*/
+ float q; /*<   */
+ float qRef; /*<   */
+ float uElev; /*<   */
+ float uThrot; /*<   */
+ float uThrot2; /*<   */
+ float nZ; /*<   */
+ float AirspeedRef; /*< [m/s] Airspeed reference*/
+ float YawAngle; /*< [deg] Yaw angle*/
+ float YawAngleRef; /*< [deg] Yaw angle reference*/
+ float RollAngle; /*< [deg] Roll angle*/
+ float RollAngleRef; /*< [deg] Roll angle reference*/
+ float p; /*<   */
+ float pRef; /*<   */
+ float r; /*<   */
+ float rRef; /*<   */
+ float uAil; /*<   */
+ float uRud; /*<   */
+ uint8_t aslctrl_mode; /*<   ASLCTRL control-mode (manual, stabilized, auto, etc...)*/
+ uint8_t SpoilersEngaged; /*<   */
+} mavlink_aslctrl_data_t;
 
 #define MAVLINK_MSG_ID_ASLCTRL_DATA_LEN 98
 #define MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN 98
-#define MAVLINK_MSG_ID_203_LEN 98
-#define MAVLINK_MSG_ID_203_MIN_LEN 98
+#define MAVLINK_MSG_ID_8004_LEN 98
+#define MAVLINK_MSG_ID_8004_MIN_LEN 98
 
 #define MAVLINK_MSG_ID_ASLCTRL_DATA_CRC 172
-#define MAVLINK_MSG_ID_203_CRC 172
+#define MAVLINK_MSG_ID_8004_CRC 172
+
 
 
 #if MAVLINK_COMMAND_24BIT
 #define MAVLINK_MESSAGE_INFO_ASLCTRL_DATA { \
-    203, \
+    8004, \
     "ASLCTRL_DATA", \
     25, \
     {  { "timestamp", NULL, MAVLINK_TYPE_UINT64_T, 0, 0, offsetof(mavlink_aslctrl_data_t, timestamp) }, \
@@ -141,14 +140,9 @@ mavlink_aslctrl_data_t;
  * @param uRud   
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_aslctrl_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                              uint64_t timestamp, uint8_t aslctrl_mode, float h, float hRef,
-                              float hRef_t, float PitchAngle, float PitchAngleRef, float q,
-                              float qRef, float uElev, float uThrot, float uThrot2, float nZ,
-                              float AirspeedRef, uint8_t SpoilersEngaged, float YawAngle,
-                              float YawAngleRef, float RollAngle, float RollAngleRef, float p,
-                              float pRef, float r, float rRef, float uAil, float uRud) {
+static inline uint16_t mavlink_msg_aslctrl_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint64_t timestamp, uint8_t aslctrl_mode, float h, float hRef, float hRef_t, float PitchAngle, float PitchAngleRef, float q, float qRef, float uElev, float uThrot, float uThrot2, float nZ, float AirspeedRef, uint8_t SpoilersEngaged, float YawAngle, float YawAngleRef, float RollAngle, float RollAngleRef, float p, float pRef, float r, float rRef, float uAil, float uRud)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ASLCTRL_DATA_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
@@ -177,7 +171,7 @@ mavlink_msg_aslctrl_data_pack(uint8_t system_id, uint8_t component_id, mavlink_m
     _mav_put_uint8_t(buf, 96, aslctrl_mode);
     _mav_put_uint8_t(buf, 97, SpoilersEngaged);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
 #else
     mavlink_aslctrl_data_t packet;
     packet.timestamp = timestamp;
@@ -210,10 +204,112 @@ mavlink_msg_aslctrl_data_pack(uint8_t system_id, uint8_t component_id, mavlink_m
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ASLCTRL_DATA;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN,
-                                    MAVLINK_MSG_ID_ASLCTRL_DATA_LEN,
-                                    MAVLINK_MSG_ID_ASLCTRL_DATA_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_CRC);
+}
+
+/**
+ * @brief Pack a aslctrl_data message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param timestamp [us]  Timestamp
+ * @param aslctrl_mode   ASLCTRL control-mode (manual, stabilized, auto, etc...)
+ * @param h   See sourcecode for a description of these values... 
+ * @param hRef   
+ * @param hRef_t   
+ * @param PitchAngle [deg] Pitch angle
+ * @param PitchAngleRef [deg] Pitch angle reference
+ * @param q   
+ * @param qRef   
+ * @param uElev   
+ * @param uThrot   
+ * @param uThrot2   
+ * @param nZ   
+ * @param AirspeedRef [m/s] Airspeed reference
+ * @param SpoilersEngaged   
+ * @param YawAngle [deg] Yaw angle
+ * @param YawAngleRef [deg] Yaw angle reference
+ * @param RollAngle [deg] Roll angle
+ * @param RollAngleRef [deg] Roll angle reference
+ * @param p   
+ * @param pRef   
+ * @param r   
+ * @param rRef   
+ * @param uAil   
+ * @param uRud   
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_aslctrl_data_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint64_t timestamp, uint8_t aslctrl_mode, float h, float hRef, float hRef_t, float PitchAngle, float PitchAngleRef, float q, float qRef, float uElev, float uThrot, float uThrot2, float nZ, float AirspeedRef, uint8_t SpoilersEngaged, float YawAngle, float YawAngleRef, float RollAngle, float RollAngleRef, float p, float pRef, float r, float rRef, float uAil, float uRud)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_ASLCTRL_DATA_LEN];
+    _mav_put_uint64_t(buf, 0, timestamp);
+    _mav_put_float(buf, 8, h);
+    _mav_put_float(buf, 12, hRef);
+    _mav_put_float(buf, 16, hRef_t);
+    _mav_put_float(buf, 20, PitchAngle);
+    _mav_put_float(buf, 24, PitchAngleRef);
+    _mav_put_float(buf, 28, q);
+    _mav_put_float(buf, 32, qRef);
+    _mav_put_float(buf, 36, uElev);
+    _mav_put_float(buf, 40, uThrot);
+    _mav_put_float(buf, 44, uThrot2);
+    _mav_put_float(buf, 48, nZ);
+    _mav_put_float(buf, 52, AirspeedRef);
+    _mav_put_float(buf, 56, YawAngle);
+    _mav_put_float(buf, 60, YawAngleRef);
+    _mav_put_float(buf, 64, RollAngle);
+    _mav_put_float(buf, 68, RollAngleRef);
+    _mav_put_float(buf, 72, p);
+    _mav_put_float(buf, 76, pRef);
+    _mav_put_float(buf, 80, r);
+    _mav_put_float(buf, 84, rRef);
+    _mav_put_float(buf, 88, uAil);
+    _mav_put_float(buf, 92, uRud);
+    _mav_put_uint8_t(buf, 96, aslctrl_mode);
+    _mav_put_uint8_t(buf, 97, SpoilersEngaged);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
+#else
+    mavlink_aslctrl_data_t packet;
+    packet.timestamp = timestamp;
+    packet.h = h;
+    packet.hRef = hRef;
+    packet.hRef_t = hRef_t;
+    packet.PitchAngle = PitchAngle;
+    packet.PitchAngleRef = PitchAngleRef;
+    packet.q = q;
+    packet.qRef = qRef;
+    packet.uElev = uElev;
+    packet.uThrot = uThrot;
+    packet.uThrot2 = uThrot2;
+    packet.nZ = nZ;
+    packet.AirspeedRef = AirspeedRef;
+    packet.YawAngle = YawAngle;
+    packet.YawAngleRef = YawAngleRef;
+    packet.RollAngle = RollAngle;
+    packet.RollAngleRef = RollAngleRef;
+    packet.p = p;
+    packet.pRef = pRef;
+    packet.r = r;
+    packet.rRef = rRef;
+    packet.uAil = uAil;
+    packet.uRud = uRud;
+    packet.aslctrl_mode = aslctrl_mode;
+    packet.SpoilersEngaged = SpoilersEngaged;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_ASLCTRL_DATA;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
+#endif
 }
 
 /**
@@ -249,15 +345,10 @@ mavlink_msg_aslctrl_data_pack(uint8_t system_id, uint8_t component_id, mavlink_m
  * @param uRud   
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_aslctrl_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                   mavlink_message_t *msg,
-                                   uint64_t timestamp, uint8_t aslctrl_mode, float h, float hRef,
-                                   float hRef_t, float PitchAngle, float PitchAngleRef, float q,
-                                   float qRef, float uElev, float uThrot, float uThrot2, float nZ,
-                                   float AirspeedRef, uint8_t SpoilersEngaged, float YawAngle,
-                                   float YawAngleRef, float RollAngle, float RollAngleRef, float p,
-                                   float pRef, float r, float rRef, float uAil, float uRud) {
+static inline uint16_t mavlink_msg_aslctrl_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint64_t timestamp,uint8_t aslctrl_mode,float h,float hRef,float hRef_t,float PitchAngle,float PitchAngleRef,float q,float qRef,float uElev,float uThrot,float uThrot2,float nZ,float AirspeedRef,uint8_t SpoilersEngaged,float YawAngle,float YawAngleRef,float RollAngle,float RollAngleRef,float p,float pRef,float r,float rRef,float uAil,float uRud)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ASLCTRL_DATA_LEN];
     _mav_put_uint64_t(buf, 0, timestamp);
@@ -286,7 +377,7 @@ mavlink_msg_aslctrl_data_pack_chan(uint8_t system_id, uint8_t component_id, uint
     _mav_put_uint8_t(buf, 96, aslctrl_mode);
     _mav_put_uint8_t(buf, 97, SpoilersEngaged);
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
 #else
     mavlink_aslctrl_data_t packet;
     packet.timestamp = timestamp;
@@ -319,10 +410,7 @@ mavlink_msg_aslctrl_data_pack_chan(uint8_t system_id, uint8_t component_id, uint
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_ASLCTRL_DATA;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN,
-                                         MAVLINK_MSG_ID_ASLCTRL_DATA_LEN,
-                                         MAVLINK_MSG_ID_ASLCTRL_DATA_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_ASLCTRL_DATA_MIN_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN, MAVLINK_MSG_ID_ASLCTRL_DATA_CRC);
 }
 
 /**
@@ -333,21 +421,9 @@ mavlink_msg_aslctrl_data_pack_chan(uint8_t system_id, uint8_t component_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param aslctrl_data C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_aslctrl_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t *msg,
-                                const mavlink_aslctrl_data_t *aslctrl_data) {
-    return mavlink_msg_aslctrl_data_pack(system_id, component_id, msg, aslctrl_data->timestamp,
-                                         aslctrl_data->aslctrl_mode, aslctrl_data->h,
-                                         aslctrl_data->hRef, aslctrl_data->hRef_t,
-                                         aslctrl_data->PitchAngle, aslctrl_data->PitchAngleRef,
-                                         aslctrl_data->q, aslctrl_data->qRef, aslctrl_data->uElev,
-                                         aslctrl_data->uThrot, aslctrl_data->uThrot2,
-                                         aslctrl_data->nZ, aslctrl_data->AirspeedRef,
-                                         aslctrl_data->SpoilersEngaged, aslctrl_data->YawAngle,
-                                         aslctrl_data->YawAngleRef, aslctrl_data->RollAngle,
-                                         aslctrl_data->RollAngleRef, aslctrl_data->p,
-                                         aslctrl_data->pRef, aslctrl_data->r, aslctrl_data->rRef,
-                                         aslctrl_data->uAil, aslctrl_data->uRud);
+static inline uint16_t mavlink_msg_aslctrl_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_aslctrl_data_t* aslctrl_data)
+{
+    return mavlink_msg_aslctrl_data_pack(system_id, component_id, msg, aslctrl_data->timestamp, aslctrl_data->aslctrl_mode, aslctrl_data->h, aslctrl_data->hRef, aslctrl_data->hRef_t, aslctrl_data->PitchAngle, aslctrl_data->PitchAngleRef, aslctrl_data->q, aslctrl_data->qRef, aslctrl_data->uElev, aslctrl_data->uThrot, aslctrl_data->uThrot2, aslctrl_data->nZ, aslctrl_data->AirspeedRef, aslctrl_data->SpoilersEngaged, aslctrl_data->YawAngle, aslctrl_data->YawAngleRef, aslctrl_data->RollAngle, aslctrl_data->RollAngleRef, aslctrl_data->p, aslctrl_data->pRef, aslctrl_data->r, aslctrl_data->rRef, aslctrl_data->uAil, aslctrl_data->uRud);
 }
 
 /**
@@ -359,24 +435,23 @@ mavlink_msg_aslctrl_data_encode(uint8_t system_id, uint8_t component_id, mavlink
  * @param msg The MAVLink message to compress the data into
  * @param aslctrl_data C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_aslctrl_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                     mavlink_message_t *msg,
-                                     const mavlink_aslctrl_data_t *aslctrl_data) {
-    return mavlink_msg_aslctrl_data_pack_chan(system_id, component_id, chan, msg,
-                                              aslctrl_data->timestamp, aslctrl_data->aslctrl_mode,
-                                              aslctrl_data->h, aslctrl_data->hRef,
-                                              aslctrl_data->hRef_t, aslctrl_data->PitchAngle,
-                                              aslctrl_data->PitchAngleRef, aslctrl_data->q,
-                                              aslctrl_data->qRef, aslctrl_data->uElev,
-                                              aslctrl_data->uThrot, aslctrl_data->uThrot2,
-                                              aslctrl_data->nZ, aslctrl_data->AirspeedRef,
-                                              aslctrl_data->SpoilersEngaged, aslctrl_data->YawAngle,
-                                              aslctrl_data->YawAngleRef, aslctrl_data->RollAngle,
-                                              aslctrl_data->RollAngleRef, aslctrl_data->p,
-                                              aslctrl_data->pRef, aslctrl_data->r,
-                                              aslctrl_data->rRef, aslctrl_data->uAil,
-                                              aslctrl_data->uRud);
+static inline uint16_t mavlink_msg_aslctrl_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_aslctrl_data_t* aslctrl_data)
+{
+    return mavlink_msg_aslctrl_data_pack_chan(system_id, component_id, chan, msg, aslctrl_data->timestamp, aslctrl_data->aslctrl_mode, aslctrl_data->h, aslctrl_data->hRef, aslctrl_data->hRef_t, aslctrl_data->PitchAngle, aslctrl_data->PitchAngleRef, aslctrl_data->q, aslctrl_data->qRef, aslctrl_data->uElev, aslctrl_data->uThrot, aslctrl_data->uThrot2, aslctrl_data->nZ, aslctrl_data->AirspeedRef, aslctrl_data->SpoilersEngaged, aslctrl_data->YawAngle, aslctrl_data->YawAngleRef, aslctrl_data->RollAngle, aslctrl_data->RollAngleRef, aslctrl_data->p, aslctrl_data->pRef, aslctrl_data->r, aslctrl_data->rRef, aslctrl_data->uAil, aslctrl_data->uRud);
+}
+
+/**
+ * @brief Encode a aslctrl_data struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param aslctrl_data C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_aslctrl_data_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_aslctrl_data_t* aslctrl_data)
+{
+    return mavlink_msg_aslctrl_data_pack_status(system_id, component_id, _status, msg,  aslctrl_data->timestamp, aslctrl_data->aslctrl_mode, aslctrl_data->h, aslctrl_data->hRef, aslctrl_data->hRef_t, aslctrl_data->PitchAngle, aslctrl_data->PitchAngleRef, aslctrl_data->q, aslctrl_data->qRef, aslctrl_data->uElev, aslctrl_data->uThrot, aslctrl_data->uThrot2, aslctrl_data->nZ, aslctrl_data->AirspeedRef, aslctrl_data->SpoilersEngaged, aslctrl_data->YawAngle, aslctrl_data->YawAngleRef, aslctrl_data->RollAngle, aslctrl_data->RollAngleRef, aslctrl_data->p, aslctrl_data->pRef, aslctrl_data->r, aslctrl_data->rRef, aslctrl_data->uAil, aslctrl_data->uRud);
 }
 
 /**
@@ -490,7 +565,7 @@ static inline void mavlink_msg_aslctrl_data_send_struct(mavlink_channel_t chan, 
 
 #if MAVLINK_MSG_ID_ASLCTRL_DATA_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -570,8 +645,9 @@ static inline void mavlink_msg_aslctrl_data_send_buf(mavlink_message_t *msgbuf, 
  *
  * @return [us]  Timestamp
  */
-static inline uint64_t mavlink_msg_aslctrl_data_get_timestamp(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint64_t(msg, 0);
+static inline uint64_t mavlink_msg_aslctrl_data_get_timestamp(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint64_t(msg,  0);
 }
 
 /**
@@ -579,8 +655,9 @@ static inline uint64_t mavlink_msg_aslctrl_data_get_timestamp(const mavlink_mess
  *
  * @return   ASLCTRL control-mode (manual, stabilized, auto, etc...)
  */
-static inline uint8_t mavlink_msg_aslctrl_data_get_aslctrl_mode(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 96);
+static inline uint8_t mavlink_msg_aslctrl_data_get_aslctrl_mode(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  96);
 }
 
 /**
@@ -588,8 +665,9 @@ static inline uint8_t mavlink_msg_aslctrl_data_get_aslctrl_mode(const mavlink_me
  *
  * @return   See sourcecode for a description of these values... 
  */
-static inline float mavlink_msg_aslctrl_data_get_h(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 8);
+static inline float mavlink_msg_aslctrl_data_get_h(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  8);
 }
 
 /**
@@ -597,8 +675,9 @@ static inline float mavlink_msg_aslctrl_data_get_h(const mavlink_message_t *msg)
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_hRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 12);
+static inline float mavlink_msg_aslctrl_data_get_hRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  12);
 }
 
 /**
@@ -606,8 +685,9 @@ static inline float mavlink_msg_aslctrl_data_get_hRef(const mavlink_message_t *m
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_hRef_t(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 16);
+static inline float mavlink_msg_aslctrl_data_get_hRef_t(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  16);
 }
 
 /**
@@ -615,8 +695,9 @@ static inline float mavlink_msg_aslctrl_data_get_hRef_t(const mavlink_message_t 
  *
  * @return [deg] Pitch angle
  */
-static inline float mavlink_msg_aslctrl_data_get_PitchAngle(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 20);
+static inline float mavlink_msg_aslctrl_data_get_PitchAngle(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  20);
 }
 
 /**
@@ -624,8 +705,9 @@ static inline float mavlink_msg_aslctrl_data_get_PitchAngle(const mavlink_messag
  *
  * @return [deg] Pitch angle reference
  */
-static inline float mavlink_msg_aslctrl_data_get_PitchAngleRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 24);
+static inline float mavlink_msg_aslctrl_data_get_PitchAngleRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  24);
 }
 
 /**
@@ -633,8 +715,9 @@ static inline float mavlink_msg_aslctrl_data_get_PitchAngleRef(const mavlink_mes
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_q(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 28);
+static inline float mavlink_msg_aslctrl_data_get_q(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  28);
 }
 
 /**
@@ -642,8 +725,9 @@ static inline float mavlink_msg_aslctrl_data_get_q(const mavlink_message_t *msg)
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_qRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 32);
+static inline float mavlink_msg_aslctrl_data_get_qRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  32);
 }
 
 /**
@@ -651,8 +735,9 @@ static inline float mavlink_msg_aslctrl_data_get_qRef(const mavlink_message_t *m
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_uElev(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 36);
+static inline float mavlink_msg_aslctrl_data_get_uElev(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  36);
 }
 
 /**
@@ -660,8 +745,9 @@ static inline float mavlink_msg_aslctrl_data_get_uElev(const mavlink_message_t *
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_uThrot(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 40);
+static inline float mavlink_msg_aslctrl_data_get_uThrot(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  40);
 }
 
 /**
@@ -669,8 +755,9 @@ static inline float mavlink_msg_aslctrl_data_get_uThrot(const mavlink_message_t 
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_uThrot2(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 44);
+static inline float mavlink_msg_aslctrl_data_get_uThrot2(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  44);
 }
 
 /**
@@ -678,8 +765,9 @@ static inline float mavlink_msg_aslctrl_data_get_uThrot2(const mavlink_message_t
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_nZ(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 48);
+static inline float mavlink_msg_aslctrl_data_get_nZ(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  48);
 }
 
 /**
@@ -687,8 +775,9 @@ static inline float mavlink_msg_aslctrl_data_get_nZ(const mavlink_message_t *msg
  *
  * @return [m/s] Airspeed reference
  */
-static inline float mavlink_msg_aslctrl_data_get_AirspeedRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 52);
+static inline float mavlink_msg_aslctrl_data_get_AirspeedRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  52);
 }
 
 /**
@@ -696,8 +785,9 @@ static inline float mavlink_msg_aslctrl_data_get_AirspeedRef(const mavlink_messa
  *
  * @return   
  */
-static inline uint8_t mavlink_msg_aslctrl_data_get_SpoilersEngaged(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 97);
+static inline uint8_t mavlink_msg_aslctrl_data_get_SpoilersEngaged(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  97);
 }
 
 /**
@@ -705,8 +795,9 @@ static inline uint8_t mavlink_msg_aslctrl_data_get_SpoilersEngaged(const mavlink
  *
  * @return [deg] Yaw angle
  */
-static inline float mavlink_msg_aslctrl_data_get_YawAngle(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 56);
+static inline float mavlink_msg_aslctrl_data_get_YawAngle(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  56);
 }
 
 /**
@@ -714,8 +805,9 @@ static inline float mavlink_msg_aslctrl_data_get_YawAngle(const mavlink_message_
  *
  * @return [deg] Yaw angle reference
  */
-static inline float mavlink_msg_aslctrl_data_get_YawAngleRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 60);
+static inline float mavlink_msg_aslctrl_data_get_YawAngleRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  60);
 }
 
 /**
@@ -723,8 +815,9 @@ static inline float mavlink_msg_aslctrl_data_get_YawAngleRef(const mavlink_messa
  *
  * @return [deg] Roll angle
  */
-static inline float mavlink_msg_aslctrl_data_get_RollAngle(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 64);
+static inline float mavlink_msg_aslctrl_data_get_RollAngle(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  64);
 }
 
 /**
@@ -732,8 +825,9 @@ static inline float mavlink_msg_aslctrl_data_get_RollAngle(const mavlink_message
  *
  * @return [deg] Roll angle reference
  */
-static inline float mavlink_msg_aslctrl_data_get_RollAngleRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 68);
+static inline float mavlink_msg_aslctrl_data_get_RollAngleRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  68);
 }
 
 /**
@@ -741,8 +835,9 @@ static inline float mavlink_msg_aslctrl_data_get_RollAngleRef(const mavlink_mess
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_p(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 72);
+static inline float mavlink_msg_aslctrl_data_get_p(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  72);
 }
 
 /**
@@ -750,8 +845,9 @@ static inline float mavlink_msg_aslctrl_data_get_p(const mavlink_message_t *msg)
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_pRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 76);
+static inline float mavlink_msg_aslctrl_data_get_pRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  76);
 }
 
 /**
@@ -759,8 +855,9 @@ static inline float mavlink_msg_aslctrl_data_get_pRef(const mavlink_message_t *m
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_r(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 80);
+static inline float mavlink_msg_aslctrl_data_get_r(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  80);
 }
 
 /**
@@ -768,8 +865,9 @@ static inline float mavlink_msg_aslctrl_data_get_r(const mavlink_message_t *msg)
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_rRef(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 84);
+static inline float mavlink_msg_aslctrl_data_get_rRef(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  84);
 }
 
 /**
@@ -777,8 +875,9 @@ static inline float mavlink_msg_aslctrl_data_get_rRef(const mavlink_message_t *m
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_uAil(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 88);
+static inline float mavlink_msg_aslctrl_data_get_uAil(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  88);
 }
 
 /**
@@ -786,8 +885,9 @@ static inline float mavlink_msg_aslctrl_data_get_uAil(const mavlink_message_t *m
  *
  * @return   
  */
-static inline float mavlink_msg_aslctrl_data_get_uRud(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 92);
+static inline float mavlink_msg_aslctrl_data_get_uRud(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  92);
 }
 
 /**
@@ -796,8 +896,8 @@ static inline float mavlink_msg_aslctrl_data_get_uRud(const mavlink_message_t *m
  * @param msg The message to decode
  * @param aslctrl_data C-struct to decode the message contents into
  */
-static inline void mavlink_msg_aslctrl_data_decode(const mavlink_message_t *msg,
-                                                   mavlink_aslctrl_data_t *aslctrl_data) {
+static inline void mavlink_msg_aslctrl_data_decode(const mavlink_message_t* msg, mavlink_aslctrl_data_t* aslctrl_data)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     aslctrl_data->timestamp = mavlink_msg_aslctrl_data_get_timestamp(msg);
     aslctrl_data->h = mavlink_msg_aslctrl_data_get_h(msg);
@@ -825,8 +925,8 @@ static inline void mavlink_msg_aslctrl_data_decode(const mavlink_message_t *msg,
     aslctrl_data->aslctrl_mode = mavlink_msg_aslctrl_data_get_aslctrl_mode(msg);
     aslctrl_data->SpoilersEngaged = mavlink_msg_aslctrl_data_get_SpoilersEngaged(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_ASLCTRL_DATA_LEN? msg->len : MAVLINK_MSG_ID_ASLCTRL_DATA_LEN;
-    memset(aslctrl_data, 0, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
-memcpy(aslctrl_data, _MAV_PAYLOAD(msg), len);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_ASLCTRL_DATA_LEN? msg->len : MAVLINK_MSG_ID_ASLCTRL_DATA_LEN;
+        memset(aslctrl_data, 0, MAVLINK_MSG_ID_ASLCTRL_DATA_LEN);
+    memcpy(aslctrl_data, _MAV_PAYLOAD(msg), len);
 #endif
 }

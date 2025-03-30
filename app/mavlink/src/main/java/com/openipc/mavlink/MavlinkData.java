@@ -18,6 +18,7 @@ public class MavlinkData {
     public final float telemetryGSpeed;
     public final float telemetryVSpeed;
     public final float telemetryThrottle;
+    public final float temperature;
     public final byte telemetryArm;
     public final byte flight_mode;
     public final byte gps_fix_type;
@@ -30,7 +31,7 @@ public class MavlinkData {
                        float telemetryBattery, float telemetryCurrent, float telemetryCurrentConsumed,
                        double telemetryLat, double telemetryLon, double telemetryLatBase, double telemetryLonBase,
                        double telemetryHdg, double telemetryDistance, float telemetrySat, float telemetryGSpeed,
-                       float telemetryVSpeed, float telemetryThrottle, byte telemetryArm, byte flight_mode,
+                       float telemetryVSpeed, float telemetryThrottle, float temperature, byte telemetryArm, byte flight_mode,
                        byte gps_fix_type, byte hdop, byte rssi, byte heading, String status) {
         this.telemetryAltitude = telemetryAltitude;
         this.telemetryPitch = telemetryPitch;
@@ -49,6 +50,7 @@ public class MavlinkData {
         this.telemetryGSpeed = telemetryGSpeed;
         this.telemetryVSpeed = telemetryVSpeed;
         this.telemetryThrottle = telemetryThrottle;
+        this.temperature = temperature;
         this.telemetryArm = telemetryArm;
         this.flight_mode = flight_mode;
         this.gps_fix_type = gps_fix_type;

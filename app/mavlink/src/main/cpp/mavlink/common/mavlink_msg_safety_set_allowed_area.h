@@ -3,18 +3,18 @@
 
 #define MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA 54
 
-MAVPACKED(
-        typedef struct __mavlink_safety_set_allowed_area_t {
-            float p1x; /*< [m] x position 1 / Latitude 1*/
-            float p1y; /*< [m] y position 1 / Longitude 1*/
-            float p1z; /*< [m] z position 1 / Altitude 1*/
-            float p2x; /*< [m] x position 2 / Latitude 2*/
-            float p2y; /*< [m] y position 2 / Longitude 2*/
-            float p2z; /*< [m] z position 2 / Altitude 2*/
-            uint8_t target_system; /*<  System ID*/
-            uint8_t target_component; /*<  Component ID*/
-            uint8_t frame; /*<  Coordinate frame. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.*/
-        }) mavlink_safety_set_allowed_area_t;
+
+typedef struct __mavlink_safety_set_allowed_area_t {
+ float p1x; /*< [m] x position 1 / Latitude 1*/
+ float p1y; /*< [m] y position 1 / Longitude 1*/
+ float p1z; /*< [m] z position 1 / Altitude 1*/
+ float p2x; /*< [m] x position 2 / Latitude 2*/
+ float p2y; /*< [m] y position 2 / Longitude 2*/
+ float p2z; /*< [m] z position 2 / Altitude 2*/
+ uint8_t target_system; /*<  System ID*/
+ uint8_t target_component; /*<  Component ID*/
+ uint8_t frame; /*<  Coordinate frame. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.*/
+} mavlink_safety_set_allowed_area_t;
 
 #define MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN 27
 #define MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN 27
@@ -23,6 +23,7 @@ MAVPACKED(
 
 #define MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_CRC 15
 #define MAVLINK_MSG_ID_54_CRC 15
+
 
 
 #if MAVLINK_COMMAND_24BIT
@@ -75,12 +76,9 @@ MAVPACKED(
  * @param p2z [m] z position 2 / Altitude 2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_safety_set_allowed_area_pack(uint8_t system_id, uint8_t component_id,
-                                         mavlink_message_t *msg,
-                                         uint8_t target_system, uint8_t target_component,
-                                         uint8_t frame, float p1x, float p1y, float p1z, float p2x,
-                                         float p2y, float p2z) {
+static inline uint16_t mavlink_msg_safety_set_allowed_area_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+                               uint8_t target_system, uint8_t target_component, uint8_t frame, float p1x, float p1y, float p1z, float p2x, float p2y, float p2z)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN];
     _mav_put_float(buf, 0, p1x);
@@ -106,14 +104,68 @@ mavlink_msg_safety_set_allowed_area_pack(uint8_t system_id, uint8_t component_id
     packet.target_component = target_component;
     packet.frame = frame;
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA;
-    return mavlink_finalize_message(msg, system_id, component_id,
-                                    MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN,
-                                    MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN,
-                                    MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_CRC);
+    return mavlink_finalize_message(msg, system_id, component_id, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_CRC);
+}
+
+/**
+ * @brief Pack a safety_set_allowed_area message
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ *
+ * @param target_system  System ID
+ * @param target_component  Component ID
+ * @param frame  Coordinate frame. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.
+ * @param p1x [m] x position 1 / Latitude 1
+ * @param p1y [m] y position 1 / Longitude 1
+ * @param p1z [m] z position 1 / Altitude 1
+ * @param p2x [m] x position 2 / Latitude 2
+ * @param p2y [m] y position 2 / Longitude 2
+ * @param p2z [m] z position 2 / Altitude 2
+ * @return length of the message in bytes (excluding serial stream start sign)
+ */
+static inline uint16_t mavlink_msg_safety_set_allowed_area_pack_status(uint8_t system_id, uint8_t component_id, mavlink_status_t *_status, mavlink_message_t* msg,
+                               uint8_t target_system, uint8_t target_component, uint8_t frame, float p1x, float p1y, float p1z, float p2x, float p2y, float p2z)
+{
+#if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
+    char buf[MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN];
+    _mav_put_float(buf, 0, p1x);
+    _mav_put_float(buf, 4, p1y);
+    _mav_put_float(buf, 8, p1z);
+    _mav_put_float(buf, 12, p2x);
+    _mav_put_float(buf, 16, p2y);
+    _mav_put_float(buf, 20, p2z);
+    _mav_put_uint8_t(buf, 24, target_system);
+    _mav_put_uint8_t(buf, 25, target_component);
+    _mav_put_uint8_t(buf, 26, frame);
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), buf, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
+#else
+    mavlink_safety_set_allowed_area_t packet;
+    packet.p1x = p1x;
+    packet.p1y = p1y;
+    packet.p1z = p1z;
+    packet.p2x = p2x;
+    packet.p2y = p2y;
+    packet.p2z = p2z;
+    packet.target_system = target_system;
+    packet.target_component = target_component;
+    packet.frame = frame;
+
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
+#endif
+
+    msg->msgid = MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA;
+#if MAVLINK_CRC_EXTRA
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_CRC);
+#else
+    return mavlink_finalize_message_buffer(msg, system_id, component_id, _status, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
+#endif
 }
 
 /**
@@ -133,12 +185,10 @@ mavlink_msg_safety_set_allowed_area_pack(uint8_t system_id, uint8_t component_id
  * @param p2z [m] z position 2 / Altitude 2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t
-mavlink_msg_safety_set_allowed_area_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
-                                              mavlink_message_t *msg,
-                                              uint8_t target_system, uint8_t target_component,
-                                              uint8_t frame, float p1x, float p1y, float p1z,
-                                              float p2x, float p2y, float p2z) {
+static inline uint16_t mavlink_msg_safety_set_allowed_area_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+                               mavlink_message_t* msg,
+                                   uint8_t target_system,uint8_t target_component,uint8_t frame,float p1x,float p1y,float p1z,float p2x,float p2y,float p2z)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN];
     _mav_put_float(buf, 0, p1x);
@@ -164,14 +214,11 @@ mavlink_msg_safety_set_allowed_area_pack_chan(uint8_t system_id, uint8_t compone
     packet.target_component = target_component;
     packet.frame = frame;
 
-    memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
+        memcpy(_MAV_PAYLOAD_NON_CONST(msg), &packet, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
 #endif
 
     msg->msgid = MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA;
-    return mavlink_finalize_message_chan(msg, system_id, component_id, chan,
-                                         MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN,
-                                         MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN,
-                                         MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_CRC);
+    return mavlink_finalize_message_chan(msg, system_id, component_id, chan, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_MIN_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_CRC);
 }
 
 /**
@@ -182,20 +229,9 @@ mavlink_msg_safety_set_allowed_area_pack_chan(uint8_t system_id, uint8_t compone
  * @param msg The MAVLink message to compress the data into
  * @param safety_set_allowed_area C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_safety_set_allowed_area_encode(uint8_t system_id, uint8_t component_id,
-                                           mavlink_message_t *msg,
-                                           const mavlink_safety_set_allowed_area_t *safety_set_allowed_area) {
-    return mavlink_msg_safety_set_allowed_area_pack(system_id, component_id, msg,
-                                                    safety_set_allowed_area->target_system,
-                                                    safety_set_allowed_area->target_component,
-                                                    safety_set_allowed_area->frame,
-                                                    safety_set_allowed_area->p1x,
-                                                    safety_set_allowed_area->p1y,
-                                                    safety_set_allowed_area->p1z,
-                                                    safety_set_allowed_area->p2x,
-                                                    safety_set_allowed_area->p2y,
-                                                    safety_set_allowed_area->p2z);
+static inline uint16_t mavlink_msg_safety_set_allowed_area_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_safety_set_allowed_area_t* safety_set_allowed_area)
+{
+    return mavlink_msg_safety_set_allowed_area_pack(system_id, component_id, msg, safety_set_allowed_area->target_system, safety_set_allowed_area->target_component, safety_set_allowed_area->frame, safety_set_allowed_area->p1x, safety_set_allowed_area->p1y, safety_set_allowed_area->p1z, safety_set_allowed_area->p2x, safety_set_allowed_area->p2y, safety_set_allowed_area->p2z);
 }
 
 /**
@@ -207,20 +243,23 @@ mavlink_msg_safety_set_allowed_area_encode(uint8_t system_id, uint8_t component_
  * @param msg The MAVLink message to compress the data into
  * @param safety_set_allowed_area C-struct to read the message contents from
  */
-static inline uint16_t
-mavlink_msg_safety_set_allowed_area_encode_chan(uint8_t system_id, uint8_t component_id,
-                                                uint8_t chan, mavlink_message_t *msg,
-                                                const mavlink_safety_set_allowed_area_t *safety_set_allowed_area) {
-    return mavlink_msg_safety_set_allowed_area_pack_chan(system_id, component_id, chan, msg,
-                                                         safety_set_allowed_area->target_system,
-                                                         safety_set_allowed_area->target_component,
-                                                         safety_set_allowed_area->frame,
-                                                         safety_set_allowed_area->p1x,
-                                                         safety_set_allowed_area->p1y,
-                                                         safety_set_allowed_area->p1z,
-                                                         safety_set_allowed_area->p2x,
-                                                         safety_set_allowed_area->p2y,
-                                                         safety_set_allowed_area->p2z);
+static inline uint16_t mavlink_msg_safety_set_allowed_area_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_safety_set_allowed_area_t* safety_set_allowed_area)
+{
+    return mavlink_msg_safety_set_allowed_area_pack_chan(system_id, component_id, chan, msg, safety_set_allowed_area->target_system, safety_set_allowed_area->target_component, safety_set_allowed_area->frame, safety_set_allowed_area->p1x, safety_set_allowed_area->p1y, safety_set_allowed_area->p1z, safety_set_allowed_area->p2x, safety_set_allowed_area->p2y, safety_set_allowed_area->p2z);
+}
+
+/**
+ * @brief Encode a safety_set_allowed_area struct with provided status structure
+ *
+ * @param system_id ID of this system
+ * @param component_id ID of this component (e.g. 200 for IMU)
+ * @param status MAVLink status structure
+ * @param msg The MAVLink message to compress the data into
+ * @param safety_set_allowed_area C-struct to read the message contents from
+ */
+static inline uint16_t mavlink_msg_safety_set_allowed_area_encode_status(uint8_t system_id, uint8_t component_id, mavlink_status_t* _status, mavlink_message_t* msg, const mavlink_safety_set_allowed_area_t* safety_set_allowed_area)
+{
+    return mavlink_msg_safety_set_allowed_area_pack_status(system_id, component_id, _status, msg,  safety_set_allowed_area->target_system, safety_set_allowed_area->target_component, safety_set_allowed_area->frame, safety_set_allowed_area->p1x, safety_set_allowed_area->p1y, safety_set_allowed_area->p1z, safety_set_allowed_area->p2x, safety_set_allowed_area->p2y, safety_set_allowed_area->p2z);
 }
 
 /**
@@ -286,7 +325,7 @@ static inline void mavlink_msg_safety_set_allowed_area_send_struct(mavlink_chann
 
 #if MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN <= MAVLINK_MAX_PAYLOAD_LEN
 /*
-  This varient of _send() can be used to save stack space by re-using
+  This variant of _send() can be used to save stack space by re-using
   memory from the receive buffer.  The caller provides a
   mavlink_message_t which is the size of a full mavlink message. This
   is usually the receive buffer for the channel, and allows a reply to an
@@ -334,9 +373,9 @@ static inline void mavlink_msg_safety_set_allowed_area_send_buf(mavlink_message_
  *
  * @return  System ID
  */
-static inline uint8_t
-mavlink_msg_safety_set_allowed_area_get_target_system(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 24);
+static inline uint8_t mavlink_msg_safety_set_allowed_area_get_target_system(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  24);
 }
 
 /**
@@ -344,9 +383,9 @@ mavlink_msg_safety_set_allowed_area_get_target_system(const mavlink_message_t *m
  *
  * @return  Component ID
  */
-static inline uint8_t
-mavlink_msg_safety_set_allowed_area_get_target_component(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 25);
+static inline uint8_t mavlink_msg_safety_set_allowed_area_get_target_component(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  25);
 }
 
 /**
@@ -354,8 +393,9 @@ mavlink_msg_safety_set_allowed_area_get_target_component(const mavlink_message_t
  *
  * @return  Coordinate frame. Can be either global, GPS, right-handed with Z axis up or local, right handed, Z axis down.
  */
-static inline uint8_t mavlink_msg_safety_set_allowed_area_get_frame(const mavlink_message_t *msg) {
-    return _MAV_RETURN_uint8_t(msg, 26);
+static inline uint8_t mavlink_msg_safety_set_allowed_area_get_frame(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_uint8_t(msg,  26);
 }
 
 /**
@@ -363,8 +403,9 @@ static inline uint8_t mavlink_msg_safety_set_allowed_area_get_frame(const mavlin
  *
  * @return [m] x position 1 / Latitude 1
  */
-static inline float mavlink_msg_safety_set_allowed_area_get_p1x(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 0);
+static inline float mavlink_msg_safety_set_allowed_area_get_p1x(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  0);
 }
 
 /**
@@ -372,8 +413,9 @@ static inline float mavlink_msg_safety_set_allowed_area_get_p1x(const mavlink_me
  *
  * @return [m] y position 1 / Longitude 1
  */
-static inline float mavlink_msg_safety_set_allowed_area_get_p1y(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 4);
+static inline float mavlink_msg_safety_set_allowed_area_get_p1y(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  4);
 }
 
 /**
@@ -381,8 +423,9 @@ static inline float mavlink_msg_safety_set_allowed_area_get_p1y(const mavlink_me
  *
  * @return [m] z position 1 / Altitude 1
  */
-static inline float mavlink_msg_safety_set_allowed_area_get_p1z(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 8);
+static inline float mavlink_msg_safety_set_allowed_area_get_p1z(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  8);
 }
 
 /**
@@ -390,8 +433,9 @@ static inline float mavlink_msg_safety_set_allowed_area_get_p1z(const mavlink_me
  *
  * @return [m] x position 2 / Latitude 2
  */
-static inline float mavlink_msg_safety_set_allowed_area_get_p2x(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 12);
+static inline float mavlink_msg_safety_set_allowed_area_get_p2x(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  12);
 }
 
 /**
@@ -399,8 +443,9 @@ static inline float mavlink_msg_safety_set_allowed_area_get_p2x(const mavlink_me
  *
  * @return [m] y position 2 / Longitude 2
  */
-static inline float mavlink_msg_safety_set_allowed_area_get_p2y(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 16);
+static inline float mavlink_msg_safety_set_allowed_area_get_p2y(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  16);
 }
 
 /**
@@ -408,8 +453,9 @@ static inline float mavlink_msg_safety_set_allowed_area_get_p2y(const mavlink_me
  *
  * @return [m] z position 2 / Altitude 2
  */
-static inline float mavlink_msg_safety_set_allowed_area_get_p2z(const mavlink_message_t *msg) {
-    return _MAV_RETURN_float(msg, 20);
+static inline float mavlink_msg_safety_set_allowed_area_get_p2z(const mavlink_message_t* msg)
+{
+    return _MAV_RETURN_float(msg,  20);
 }
 
 /**
@@ -418,8 +464,8 @@ static inline float mavlink_msg_safety_set_allowed_area_get_p2z(const mavlink_me
  * @param msg The message to decode
  * @param safety_set_allowed_area C-struct to decode the message contents into
  */
-static inline void mavlink_msg_safety_set_allowed_area_decode(const mavlink_message_t *msg,
-                                                              mavlink_safety_set_allowed_area_t *safety_set_allowed_area) {
+static inline void mavlink_msg_safety_set_allowed_area_decode(const mavlink_message_t* msg, mavlink_safety_set_allowed_area_t* safety_set_allowed_area)
+{
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     safety_set_allowed_area->p1x = mavlink_msg_safety_set_allowed_area_get_p1x(msg);
     safety_set_allowed_area->p1y = mavlink_msg_safety_set_allowed_area_get_p1y(msg);
@@ -431,9 +477,8 @@ static inline void mavlink_msg_safety_set_allowed_area_decode(const mavlink_mess
     safety_set_allowed_area->target_component = mavlink_msg_safety_set_allowed_area_get_target_component(msg);
     safety_set_allowed_area->frame = mavlink_msg_safety_set_allowed_area_get_frame(msg);
 #else
-    uint8_t len = msg->len < MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN ? msg->len
-                                                                        : MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN;
-    memset(safety_set_allowed_area, 0, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
+        uint8_t len = msg->len < MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN? msg->len : MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN;
+        memset(safety_set_allowed_area, 0, MAVLINK_MSG_ID_SAFETY_SET_ALLOWED_AREA_LEN);
     memcpy(safety_set_allowed_area, _MAV_PAYLOAD(msg), len);
 #endif
 }
